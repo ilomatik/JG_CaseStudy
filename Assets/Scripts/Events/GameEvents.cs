@@ -11,8 +11,9 @@ namespace Events
         public static Action OnChipDeselected;
         public static Action OnChipMoved;
         
-        public static Action OnWheelStartSpin;
-        public static Action OnWheelStopSpin;
+        public static Action      OnWheelStartSpin;
+        public static Action      OnWheelStopSpin;
+        public static Action<int> OnWheelSpinComplete;
 
         public static Action OnSpinButtonClicked;
         
@@ -23,8 +24,9 @@ namespace Events
         public static void ChipDeselected() { OnChipDeselected?.Invoke(); }
         public static void ChipMoved()      { OnChipMoved?.Invoke(); }
         
-        public static void WheelStartSpin() { OnWheelStartSpin?.Invoke(); }
-        public static void WheelStopSpin()  { OnWheelStopSpin?.Invoke(); }
+        public static void WheelStartSpin()                  { OnWheelStartSpin?.Invoke(); }
+        public static void WheelStopSpin()                   { OnWheelStopSpin?.Invoke(); }
+        public static void WheelSpinComplete(int stopNumber) { OnWheelSpinComplete?.Invoke(stopNumber); }
         
         public static void ClickSpinButton() { OnSpinButtonClicked?.Invoke(); }
     }

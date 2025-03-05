@@ -25,16 +25,23 @@ namespace Controllers
         public void SubscribeEvents()
         {
             GameEvents.OnSpinButtonClicked += SpinWheel;
+            GameEvents.OnWheelSpinComplete += ShowResult;
         }
         
         public void UnsubscribeEvents()
         {
             GameEvents.OnSpinButtonClicked -= SpinWheel;
+            GameEvents.OnWheelSpinComplete -= ShowResult;
         }
 
         private void SpinWheel()
         {
             _view.SpinWheel();
+        }
+        
+        private void ShowResult(int value)
+        {
+            _view.ShowResult(value);
         }
     }
 }
