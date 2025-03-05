@@ -189,6 +189,7 @@ MonoBehaviour:
     type: 3}
   _gameUIView: {fileID: 3559137408600846054, guid: 28a5f5067377a864ea6db1c2b9bc60ff,
     type: 3}
+  _gameSettings: {fileID: 11400000, guid: 634cb5bcf55c550478bc2b10deaae34b, type: 2}
 --- !u!4 &381572167
 Transform:
   m_ObjectHideFlags: 0

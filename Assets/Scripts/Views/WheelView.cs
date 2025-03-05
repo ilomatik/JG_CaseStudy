@@ -23,9 +23,9 @@ namespace Views
             }
         }
         
-        public void SetStopNumber(int stopNumber)
+        public void SetStopNumber(bool isRandomize, int stopNumber)
         {
-            _stopNumber = stopNumber < 0 ? Random.Range(0, _wheelSegmentsCount) : stopNumber;
+            _stopNumber = isRandomize ? Random.Range(0, _wheelSegmentsCount) : stopNumber;
         }
         
         public void SetSpinDuration(float spinDuration)

@@ -1,17 +1,20 @@
 using Data;
 using Events;
+using Scripts;
 using Views;
 
 namespace Controllers
 {
     public class GameController
     {
-        private GameData _data;
-        private GameView _view;
+        private GameData     _data;
+        private GameView     _view;
+        private GameSettings _settings;
         
-        public GameController(GameView view)
+        public GameController(GameView view, GameSettings settings)
         {
-            _view = view;
+            _view     = view;
+            _settings = settings;
             
             _data = new GameData();
         }
@@ -19,7 +22,7 @@ namespace Controllers
         public void Initialize()
         {
             _data.Initialize();
-            _view.Initialize();
+            _view.Initialize(_settings.WheelSpeed);
         }
         
         public void SubscribeEvents()
@@ -36,7 +39,7 @@ namespace Controllers
 
         private void SpinWheel()
         {
-            _view.SpinWheel();
+            _view.SpinWheel(_settings.RandomizeWheelStopValue, _settings.WheelStopValue);
         }
         
         private void ShowResult(int value)
