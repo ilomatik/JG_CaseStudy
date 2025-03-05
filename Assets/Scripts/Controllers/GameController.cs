@@ -1,4 +1,5 @@
 using Data;
+using Events;
 using Views;
 
 namespace Controllers
@@ -19,6 +20,21 @@ namespace Controllers
         {
             _data.Initialize();
             _view.Initialize();
+        }
+        
+        public void SubscribeEvents()
+        {
+            GameEvents.OnSpinButtonClicked += SpinWheel;
+        }
+        
+        public void UnsubscribeEvents()
+        {
+            GameEvents.OnSpinButtonClicked -= SpinWheel;
+        }
+
+        private void SpinWheel()
+        {
+            _view.SpinWheel();
         }
     }
 }
