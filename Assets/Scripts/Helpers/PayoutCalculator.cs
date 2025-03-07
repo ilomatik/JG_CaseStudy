@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Enums;
 using UnityEngine;
 
@@ -6,33 +6,62 @@ namespace Scripts.Helpers
 {
     public class PayoutCalculator
     {
-        private static readonly Dictionary<BetType, float> PayoutOdds = new Dictionary<BetType, float>
+        private const int EuropeanNumbers = 37;
+        private const int AmericanNumbers = 38;
+
+        private static float CalculatePayout(BetType betType, bool isAmericanRoulette)
         {
-            { BetType.OneToTwelve, 2.0f },
-            { BetType.ThirteenToTwentyFour, 2.0f },
-            { BetType.TwentyFiveToThirtySix, 2.0f },
-            { BetType.Red, 1.0f },
-            { BetType.Black, 1.0f },
-            { BetType.Even, 1.0f },
-            { BetType.Odd, 1.0f },
-            { BetType.OneToEighteen, 1.0f },
-            { BetType.NineteenToThirtySix, 1.0f }
-        };
+            int totalNumbers = isAmericanRoulette ? AmericanNumbers : EuropeanNumbers;
 
-        public static float CalculatePayout(BetType betType, float amountWagered, bool isWinningBet)
-        {
-            if (!isWinningBet)
+            switch (betType)
             {
-                return 0.0f;
-            }
+                case BetType.StraightUp:
+                    return 35.0f / totalNumbers;
 
-            if (PayoutOdds.TryGetValue(betType, out float odds))
-            {
-                return amountWagered * (odds + 1);
-            }
+                case BetType.Split:
+                    return 17.0f / totalNumbers;
 
-            Debug.LogError("Payout odds not found for bet type: " + betType);
+                case BetType.Street:
+                    return 11.0f / totalNumbers;
+
+                case BetType.Corner:
+                    return 8.0f / totalNumbers;
+
+                case BetType.SixLine:
+                    return 5.0f / totalNumbers;
+
+                case BetType.Column:
+                    return 2.0f / totalNumbers;
+
+                case BetType.Dozen:
+                    return 2.0f / totalNumbers;
+
+                case BetType.EvenMoney:
+                    return 1.0f / totalNumbers;
+
+                case BetType.TopLine:
+                    if (isAmericanRoulette)
+                    {
+                        return 6.0f / AmericanNumbers;
+                    }
+                    else
+                    {
+                        Debug.LogError("Top Line bet is only available in American Roulette.");
+                    }
+
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(betType), betType, null);
+            }
+            
             return 0.0f;
+        }
+
+        public static float CalculatePayoutAmount(BetType betType, bool isAmericanRoulette, float betAmount)
+        {
+            float  payoutRatio = CalculatePayout(betType, isAmericanRoulette);
+            return payoutRatio * betAmount + betAmount;
         }
     }
 }

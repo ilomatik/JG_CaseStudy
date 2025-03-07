@@ -2,14 +2,14 @@ namespace Enums
 {
     public enum BetType
     {
-        OneToTwelve,
-        ThirteenToTwentyFour,
-        TwentyFiveToThirtySix,
-        Red,
-        Black,
-        Even,
-        Odd,
-        OneToEighteen,
-        NineteenToThirtySix
+        StraightUp,
+        Split,
+        Street,
+        Corner,
+        SixLine,
+        Column,
+        Dozen,
+        EvenMoney,
+        TopLine
     }
 }
