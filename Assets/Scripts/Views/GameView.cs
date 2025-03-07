@@ -1,21 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Views
 {
     public class GameView : MonoBehaviour
     {
-        [SerializeField] private GameObject _wheelObject;
-        [SerializeField] private GameObject _tableObject;
+        [SerializeField] private GameObject       _wheelObject;
+        [SerializeField] private GameObject       _tableObject;
+        [SerializeField] private List<GameObject> _betAreas;
 
         private WheelView _wheel;
         private TableView _table;
 
-        public void Initialize(int slotCount, float slotSpacing, float wheelSpeed)
+        public void Initialize(float wheelSpeed)
         {
             _wheel = _wheelObject.GetComponent<WheelView>();
             _table = _tableObject.GetComponent<TableView>();
 
-            _table.Initialize(slotCount, slotSpacing);
+            _table.Initialize();
             _wheel.Initialize();
             _wheel.SetSpinDuration(wheelSpeed);
         }
