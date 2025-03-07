@@ -10,12 +10,12 @@ namespace Views
         private WheelView _wheel;
         private TableView _table;
 
-        public void Initialize(float wheelSpeed)
+        public void Initialize(int slotCount, float slotSpacing, float wheelSpeed)
         {
             _wheel = _wheelObject.GetComponent<WheelView>();
             _table = _tableObject.GetComponent<TableView>();
 
-            _table.Initialize();
+            _table.Initialize(slotCount, slotSpacing);
             _wheel.Initialize();
             _wheel.SetSpinDuration(wheelSpeed);
         }

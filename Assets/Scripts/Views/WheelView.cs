@@ -8,6 +8,7 @@ namespace Views
     public class WheelView : MonoBehaviour
     {
         [SerializeField] private List<WheelSlotView> _wheelSegments;
+        [SerializeField] private BallView            _ballView;
         
         private int   _wheelSegmentsCount;
         private int   _stopNumber;
@@ -60,9 +61,12 @@ namespace Views
 
             transform.rotation = Quaternion.Euler(0, endAngle, 0);
             
-            SetSlotColors(stopNumber);
-            GameEvents.WheelStopSpin();
-            GameEvents.WheelSpinComplete(_wheelSegments[stopNumber].Value);
+            _ballView.SpinToSlot(stopNumber, _wheelSegmentsCount, () =>
+            {
+                SetSlotColors(stopNumber);
+                GameEvents.WheelStopSpin();
+                GameEvents.WheelSpinComplete(_wheelSegments[stopNumber].Value);
+            });
         }
         
         private void SetSlotColors(int stopNumber)

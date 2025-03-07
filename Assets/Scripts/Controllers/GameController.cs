@@ -22,7 +22,7 @@ namespace Controllers
         public void Initialize()
         {
             _data.Initialize();
-            _view.Initialize(_settings.WheelSpeed);
+            _view.Initialize(_settings.TableSlotsCount, _settings.TableSlotSpacing, _settings.WheelSpeed);
         }
         
         public void SubscribeEvents()

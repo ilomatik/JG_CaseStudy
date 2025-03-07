@@ -15,3 +15,5 @@ MonoBehaviour:
   _randomizeWheelStopValue: 1
   _wheelStopValue: 2
   _wheelSpeed: 2
+  _tableSlotsCount: 36
+  _tableSlotSpacing: 1.1
