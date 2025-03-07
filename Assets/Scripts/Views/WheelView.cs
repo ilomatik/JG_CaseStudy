@@ -10,9 +10,10 @@ namespace Views
         [SerializeField] private List<WheelSlotView> _wheelSegments;
         [SerializeField] private BallView            _ballView;
         
-        private int   _wheelSegmentsCount;
-        private int   _stopNumber;
-        private float _spinDuration;
+        private int         _wheelSegmentsCount;
+        private int         _stopNumber;
+        private float       _spinSpeed;
+        private IEnumerator _spinWheelCoroutine;
         
         public void Initialize()
         {
@@ -29,38 +30,35 @@ namespace Views
             _stopNumber = isRandomize ? Random.Range(0, _wheelSegmentsCount) : stopNumber;
         }
         
-        public void SetSpinDuration(float spinDuration)
+        public void SetSpinDuration(float spinSpeed)
         {
-            _spinDuration = spinDuration;
+            _spinSpeed = spinSpeed;
         }
         
         public void Spin()
         {
+            if (_spinWheelCoroutine == null)
+            {
+                _spinWheelCoroutine = SpinWheel();
+                StartCoroutine(_spinWheelCoroutine);
+            }
+            
             ResetWheel();
             GameEvents.WheelStartSpin();
-            
-            StartCoroutine(SpinToNumber(_stopNumber));
+            SpinBall(_stopNumber);
         }
 
-        private IEnumerator SpinToNumber(int stopNumber)
+        private IEnumerator SpinWheel()
         {
-            float elapsed    = 0.0f;
-            float startAngle = transform.rotation.eulerAngles.y;
-            float endAngle   = 360.0f * 3 + (stopNumber * (360.0f / _wheelSegmentsCount));
-
-            while (elapsed < _spinDuration)
+            while (true)
             {
-                elapsed += Time.deltaTime;
-                
-                float time  = elapsed / _spinDuration;
-                float angle = Mathf.Lerp(startAngle, endAngle, time * time);
-                
-                transform.rotation = Quaternion.Euler(0, angle, 0);
+                transform.Rotate(Vector3.up, _spinSpeed * Time.deltaTime);
                 yield return null;
             }
-
-            transform.rotation = Quaternion.Euler(0, endAngle, 0);
-            
+        }
+        
+        private void SpinBall(int stopNumber)
+        {
             _ballView.SpinToSlot(stopNumber, _wheelSegmentsCount, () =>
             {
                 SetSlotColors(stopNumber);
