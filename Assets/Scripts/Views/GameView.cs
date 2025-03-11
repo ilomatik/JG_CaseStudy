@@ -1,40 +1,67 @@
+using System;
 using System.Collections.Generic;
 using Constants;
 using Enums;
-using Events;
 using UnityEngine;
 using Views.BetAreas;
 using Views.Chip;
+using Views.Interfaces;
 
 namespace Views
 {
-    public class GameView : MonoBehaviour
+    public class GameView : MonoBehaviour, IView
     {
-        [SerializeField] private GameObject    _wheelObject;
-        [SerializeField] private GameObject    _tableObject;
-        [SerializeField] private List<BetArea> _betAreas;
+        [Header("Game Objects")]
+        [SerializeField] private GameObject         _wheelObject;
+        [SerializeField] private GameObject         _tableObject;
+        
+        [Header("Chip Objects")]
+        [SerializeField] private GameObject         _chipPrefab;
+        [SerializeField] private GameObject         _tableChipHolder;
+        [SerializeField] private List<ChipMaterial> _chipMaterials;
+        
+        [Header("Bet Areas")]
+        [SerializeField] private List<BetArea>      _betAreas;
 
-        private int       _playerId;
-        private WheelView _wheel;
-        private TableView _table;
+        private int                  _playerId;
+        private IWheelView           _wheel;
+        private ITableView           _table;
+        private ITableChipHolderView _tableChipHolderView;
 
-        public void Initialize(float wheelSpeed)
+        public void Initialize()
         {
             _playerId = PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER);
             
-            _wheel = _wheelObject.GetComponent<WheelView>();
-            _table = _tableObject.GetComponent<TableView>();
+            _wheel               = _wheelObject.GetComponent<IWheelView>();
+            _table               = _tableObject.GetComponent<ITableView>();
+            _tableChipHolderView = _tableChipHolder.GetComponent<ITableChipHolderView>();
 
             _table.Initialize();
             _wheel.Initialize();
-            _wheel.SetSpinDuration(wheelSpeed);
+            _tableChipHolderView.Initialize();
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void SetWheelSpinDuration(float duration)
+        {
+            _wheel.SetSpinDuration(duration);
         }
         
-        private void InitializeBetAreas()
+        public void SpawnChip(ChipType chipType, Vector3 position)
         {
-            foreach (BetArea betArea in _betAreas)
-            {
-            }
+            GameObject chip = Instantiate(_chipPrefab, position, Quaternion.identity);
+            ChipView chipView = chip.GetComponent<ChipView>();
+            chipView.Initialize(chipType);
+            chipView.SetChipMaterial(_chipMaterials.Find(material => material.ChipType == chipType).Material);
         }
         
         public void SpinWheel(bool isRandom, int wheelStopValue)
@@ -60,5 +87,15 @@ namespace Views
             BetArea betArea = _betAreas.Find(area => area.Id == betAreaId);
             betArea.RemoveChip(chip.GetComponent<ChipView>());
         }
+    }
+    
+    [Serializable]
+    public class ChipMaterial
+    {
+        [SerializeField] private ChipType _chipType;
+        [SerializeField] private Material _material;
+        
+        public ChipType ChipType => _chipType;
+        public Material Material => _material;
     }
 }

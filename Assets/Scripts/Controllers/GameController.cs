@@ -1,7 +1,6 @@
 using Data;
 using Events;
 using Scripts;
-using Scripts.Helpers;
 using UnityEngine;
 using Views;
 
@@ -23,7 +22,9 @@ namespace Controllers
         public void Initialize()
         {
             _data.Initialize();
-            _view.Initialize(_settings.WheelSpeed);
+            _view.Initialize();
+            
+            _view.SetWheelSpinDuration(_settings.WheelSpeed);
         }
         
         public void SubscribeEvents()

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Views.Interfaces;
 
 namespace Views
 {
-    public class TableView : MonoBehaviour
+    public class TableView : MonoBehaviour, IView, ITableView
     {
         [SerializeField] private Material       _winningMaterial;
         [SerializeField] private Material       _losingMaterial;
@@ -49,6 +50,16 @@ namespace Views
             {
                 slot.ChangeDefaultColor();
             }
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

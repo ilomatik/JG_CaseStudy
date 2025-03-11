@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Events;
 using UnityEngine;
+using Views.Interfaces;
 
 namespace Views
 {
-    public class WheelView : MonoBehaviour
+    public class WheelView : MonoBehaviour,  IWheelView
     {
         [SerializeField] private List<WheelSlotView> _wheelSegments;
         [SerializeField] private BallView            _ballView;
@@ -24,7 +25,17 @@ namespace Views
                 slot.Initialize();
             }
         }
-        
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void SetStopNumber(bool isRandomize, int stopNumber)
         {
             _stopNumber = isRandomize ? Random.Range(0, _wheelSegmentsCount) : stopNumber;
