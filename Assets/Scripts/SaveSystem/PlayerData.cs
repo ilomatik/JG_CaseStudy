@@ -5,6 +5,7 @@ namespace Scripts
     [System.Serializable]
     public class PlayerData
     {
+        public int            _playerId;
         public string         _playerName;
         public List<ChipData> _chips; 
         public int            _gamesPlayed;
@@ -13,8 +14,9 @@ namespace Scripts
         public string         _lastLoginTime;
 
         // Constructor
-        public PlayerData(string name, List<ChipData> chipList, int played, int won, int lost, string lastLogin)
+        public PlayerData(int playerId, string name, List<ChipData> chipList, int played, int won, int lost, string lastLogin)
         {
+            _playerId      = playerId;
             _playerName    = name;
             _chips         = chipList;
             _gamesPlayed   = played;

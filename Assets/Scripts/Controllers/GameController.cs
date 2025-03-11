@@ -2,6 +2,7 @@ using Data;
 using Events;
 using Scripts;
 using Scripts.Helpers;
+using UnityEngine;
 using Views;
 
 namespace Controllers
@@ -38,6 +39,7 @@ namespace Controllers
             GameEvents.OnSpinButtonClicked -= SpinWheel;
             GameEvents.OnWheelSpinComplete -= ShowResult;
             GameEvents.OnChipPlaced        -= AddBet;
+            GameEvents.OnChipRemoved       -= RemoveBet;
         }
 
         private void SpinWheel()
@@ -50,24 +52,19 @@ namespace Controllers
             _view.ShowResult(value);
         }
         
-        private void AddBet(BetHolder bet)
+        private void AddBet(int betAreaId, GameObject chip)
         {
-            _data.AddBet(bet);
+            _view.PlaceChip(betAreaId, chip);
         }
         
-        private void RemoveBet(BetHolder bet)
+        private void RemoveBet(int betAreaId, GameObject chip)
         {
-            _data.RemoveBet(bet);
+            _view.RemoveChip(betAreaId, chip);
         }
         
         private void ClearBets()
         {
             _data.ClearBets();
-        }
-
-        private AllBetHolder GetAllBets()
-        {
-            return _data.GetAllBets();
         }
     }
 }

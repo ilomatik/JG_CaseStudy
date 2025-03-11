@@ -21,6 +21,8 @@ namespace Managers
         
         [Header("Managers")]
         [SerializeField] private StorageManager _storageManager;
+        [SerializeField] private BetManager     _betManager;
+        
         
         private string         _playerNameHolder;
         private GameController _gameController;
@@ -31,41 +33,46 @@ namespace Managers
             GameObject gameView   = Instantiate(_gameView, _viewContainer);
             GameObject gameUIView = Instantiate(_gameUIView, _uiContainer);
             
-            _gameController = new GameController(gameView.GetComponent<GameView>(), _gameSettings);
-            _gameController.Initialize();
-            _gameController.SubscribeEvents();
-            
-
-            if (_storageManager.LoadPlayerData())
-            {
-                _playerNameHolder = _storageManager._player._playerName;
-            }
-            else
-            {
-                _playerNameHolder = _playerName;
-                _storageManager.CreatePlayerData(_playerNameHolder);
-            }
-            
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
+            _gameController      = new GameController(gameView.GetComponent<GameView>(), _gameSettings);
+            
+            Initialize();
+            
             _gameUIViewComponent.SetPlayerName(_playerNameHolder);
             
             SubscribeEvents();
+            
+            _gameController.SubscribeEvents();
         }
-        
+
+        private void Initialize()
+        {
+            _storageManager.Initialize(_playerName);
+            _betManager    .Initialize();
+            _gameController.Initialize();
+        }
+
         private void SubscribeEvents()
         {
             GameEvents.OnChipAmountChanged += _storageManager.UpdateChipAmount;
+            
+            BetEvents.OnBetPlaced  += _betManager.PlaceBet;
+            BetEvents.OnBetRemoved += _betManager.RemoveBet;
         }
         
         private void UnsubscribeEvents()
         {
             GameEvents.OnChipAmountChanged -= _storageManager.UpdateChipAmount;
+            
+            BetEvents.OnBetPlaced  -= _betManager.PlaceBet;
+            BetEvents.OnBetRemoved -= _betManager.RemoveBet;
         }
         
         private void OnDestroy()
         {
-            UnsubscribeEvents();
             _gameController.UnsubscribeEvents();
+            
+            UnsubscribeEvents();
         }
     }
 }

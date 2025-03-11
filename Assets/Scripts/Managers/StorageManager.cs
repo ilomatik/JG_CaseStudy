@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Constants;
 using Scripts;
 using UnityEngine;
 
@@ -9,12 +10,22 @@ namespace Managers
     public class StorageManager : MonoBehaviour
     {
         public PlayerData _player;
-        
-        public void CreatePlayerData(string playerName)
+
+        public void Initialize(string playerName)
+        {
+            if (!LoadPlayerData())
+            {
+                CreatePlayerData(playerName);
+            }
+        }
+
+        private void CreatePlayerData(string playerName)
         {
             List<ChipData> playerChips = new List<ChipData>();
             
-            _player = new PlayerData(playerName, playerChips, 0, 0, 0, System.DateTime.Now.ToString());
+            _player = new PlayerData(GetPlayerIdCount(), playerName, playerChips, 0, 0, 0, System.DateTime.Now.ToString());
+            
+            IncrementPlayerId();
             
             string json = JsonUtility.ToJson(_player);
             SavePlayerData(json);
@@ -26,8 +37,8 @@ namespace Managers
             File.WriteAllText(path, json);
             Debug.Log("Player data saved to: " + path);
         }
-        
-        public bool LoadPlayerData()
+
+        private bool LoadPlayerData()
         {
             string path = Application.persistentDataPath + "/playerData.json";
             
@@ -39,7 +50,6 @@ namespace Managers
 
                 Debug.Log("Player data loaded: " + _player._playerName);
                 
-                // Çip verilerini yazdırma
                 foreach (ChipData chip in wrapper.chips)
                 {
                     Debug.Log($"Chip Type: {chip.chipType}, Amount: {chip.amount}");
@@ -85,6 +95,44 @@ namespace Managers
         {
             string json = JsonUtility.ToJson(_player);
             SavePlayerData(json);
+        }
+
+        private int GetPlayerIdCount()
+        {
+            if (PlayerPrefs.HasKey(GameConstant.PLAYER_ID_COUNTER))
+            {
+                return PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(GameConstant.PLAYER_ID_COUNTER, 0);
+                return 0;
+            }
+        }
+
+        private void IncrementPlayerId()
+        {
+            int playerId = GetPlayerIdCount();
+            playerId++;
+            PlayerPrefs.SetInt(GameConstant.PLAYER_ID_COUNTER, playerId);
+        }
+        
+        public void IncrementGamesPlayed()
+        {
+            _player._gamesPlayed++;
+            SavePlayerData(JsonUtility.ToJson(_player));
+        }
+
+        public void IncrementGamesWon()
+        {
+            _player._gamesWon++;
+            SavePlayerData(JsonUtility.ToJson(_player));
+        }
+
+        public void IncrementGamesLost()
+        {
+            _player._gamesLost++;
+            SavePlayerData(JsonUtility.ToJson(_player));
         }
     }
     

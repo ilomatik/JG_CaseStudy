@@ -8,7 +8,6 @@ namespace Scripts
         public string chipType;
         public int    amount;
 
-        // Constructor
         public ChipData(string type, int amount)
         {
             chipType    = type;

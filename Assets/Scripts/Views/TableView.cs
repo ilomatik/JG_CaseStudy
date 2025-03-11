@@ -10,7 +10,7 @@ namespace Views
         [SerializeField] private List<SlotView> _slotViews;
         
         private Dictionary<int, SlotView> _slots;
-        private int            _slotCount;
+        private int                       _slotCount;
 
         public void Initialize()
         {
