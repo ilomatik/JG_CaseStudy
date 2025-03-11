@@ -3,7 +3,7 @@ using Events;
 using Scripts;
 using UI;
 using UnityEngine;
-using Views;
+using Views.Interfaces;
 
 namespace Managers
 {
@@ -34,7 +34,7 @@ namespace Managers
             GameObject gameUIView = Instantiate(_gameUIView, _uiContainer);
             
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
-            _gameController      = new GameController(gameView.GetComponent<GameView>(), _gameSettings);
+            _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings);
             
             Initialize();
             

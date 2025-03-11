@@ -14,6 +14,7 @@ namespace Enums
         Even,       // Çift sayılar
         Odd,        // Tek sayılar
         Low,        // 1-18
-        High        // 19-36
+        High,       // 19-36
+        None        // Bahis yok
     }
 }

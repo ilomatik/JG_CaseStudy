@@ -5,17 +5,17 @@ using Events;
 using Scripts;
 using Scripts.Helpers;
 using UnityEngine;
-using Views;
+using Views.Interfaces;
 
 namespace Controllers
 {
     public class GameController
     {
         private GameData     _data;
-        private GameView     _view;
+        private IGameView    _view;
         private GameSettings _settings;
         
-        public GameController(GameView view, GameSettings settings)
+        public GameController(IGameView view, GameSettings settings)
         {
             _view     = view;
             _settings = settings;
@@ -26,6 +26,7 @@ namespace Controllers
         {
             _data.Initialize();
             _view.Initialize();
+            _view.InitializeBetAreas();
             
             _view.SetWheelSpinDuration(_settings.WheelSpeed);
         }

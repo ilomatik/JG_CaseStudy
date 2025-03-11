@@ -9,7 +9,7 @@ using Views.Interfaces;
 
 namespace Views
 {
-    public class GameView : MonoBehaviour, IView
+    public class GameView : MonoBehaviour, IView, IGameView
     {
         [Header("Game Objects")]
         [SerializeField] private GameObject         _wheelObject;
@@ -39,6 +39,14 @@ namespace Views
             _table.Initialize();
             _wheel.Initialize();
             _tableChipHolderView.Initialize();
+        }
+        
+        public void InitializeBetAreas()
+        {
+            foreach (BetArea betArea in _betAreas)
+            {
+                betArea.Initialize();
+            }
         }
 
         public void Show()

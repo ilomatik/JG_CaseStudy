@@ -17,6 +17,11 @@ namespace Views.BetAreas
         public BetType BetType => _betType;
         
         private List<ChipView> _placedChips;
+        
+        public void Initialize()
+        {
+            _placedChips = new List<ChipView>();
+        }
 
         public bool IsBetWinning(int winningNumber)
         {

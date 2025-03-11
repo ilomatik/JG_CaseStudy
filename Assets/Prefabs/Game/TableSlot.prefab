@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 8421523229035027973}
   m_Layer: 0
   m_Name: TableSlot
-  m_TagString: Untagged
+  m_TagString: TableSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,3 +291,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotNumberText: {fileID: 5404929142528300101}
+  _slotNumber: 0

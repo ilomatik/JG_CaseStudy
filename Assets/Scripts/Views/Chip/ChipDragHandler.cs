@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using Views.BetAreas;
 
@@ -36,23 +38,30 @@ namespace Views.Chip
         {
             _isDragging = false;
 
-            Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (!DetectBetArea())
             {
-                if (hit.collider != null && hit.collider.GetComponent<BetArea>())
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.2f);
+                int detectedBetAreasCount = 0;
+
+                foreach (Collider col in hitColliders)
                 {
-                    BetArea betArea = hit.collider.GetComponent<BetArea>();
-                    betArea.PlaceChip(_chipView);
+                    BetArea betArea = col.GetComponent<BetArea>();
+                
+                    if (betArea != null)
+                    {
+                        detectedBetAreasCount++;
+                    }
                 }
-                else
+
+                if (detectedBetAreasCount is 0 or > 1)
                 {
                     ReturnToStart();
                 }
-            }
-            else
-            {
-                ReturnToStart();
+                else
+                {
+                    BetArea betArea = hitColliders[0].GetComponent<BetArea>();
+                    betArea.PlaceChip(_chipView);
+                }
             }
         }
 
@@ -66,6 +75,52 @@ namespace Views.Chip
         private void ReturnToStart()
         {
             transform.position = _initialPosition;
+        }
+        
+        private bool DetectBetArea()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.2f);
+            List<int> detectedNumbers = new List<int>();
+
+            foreach (Collider col in hitColliders)
+            {
+                SlotView slot = col.GetComponent<SlotView>();
+                
+                if (slot != null)
+                {
+                    detectedNumbers.Add(slot.SlotNumber);
+                }
+            }
+            
+            int detectedSlotsCount = detectedNumbers.Count;
+
+            if (detectedSlotsCount > 0)
+            {
+                BetType betType = BetType.None;
+                
+                if (detectedSlotsCount == 1)
+                {
+                    betType = BetType.Single;
+                }
+                else if (detectedSlotsCount == 2)
+                {
+                    betType = BetType.Split;
+                }
+                else if (detectedSlotsCount == 4)
+                {
+                    betType = BetType.Corner;
+                }
+                
+                Debug.Log("Detected bet type: " + betType);
+                
+                return true;
+            }
+            else
+            {
+                Debug.Log("Could not hit slot!");
+                
+                return false;
+            }
         }
     }
 }
