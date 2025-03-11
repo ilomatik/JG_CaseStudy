@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using Data;
+using Enums;
 using Events;
 using Scripts;
+using Scripts.Helpers;
 using UnityEngine;
 using Views;
 
@@ -41,6 +44,21 @@ namespace Controllers
             GameEvents.OnWheelSpinComplete -= ShowResult;
             GameEvents.OnChipPlaced        -= AddBet;
             GameEvents.OnChipRemoved       -= RemoveBet;
+        }
+        
+        public void StartGame(List<ChipData> playerChips)
+        {
+            foreach (ChipData playerChip in playerChips)
+            {
+                int chipAmount = playerChip.amount;
+
+                for (int c = 0; c < chipAmount; c++)
+                {
+                    ChipType chipType = EnumComparison.GetChipType(playerChip.chipType);
+                
+                    _view.SpawnChip(chipType);
+                }
+            }
         }
 
         private void SpinWheel()

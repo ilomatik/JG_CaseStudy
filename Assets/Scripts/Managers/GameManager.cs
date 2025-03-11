@@ -41,8 +41,9 @@ namespace Managers
             _gameUIViewComponent.SetPlayerName(_playerNameHolder);
             
             SubscribeEvents();
-            
             _gameController.SubscribeEvents();
+            
+            StartGame();
         }
 
         private void Initialize()
@@ -50,6 +51,11 @@ namespace Managers
             _storageManager.Initialize(_playerName);
             _betManager    .Initialize();
             _gameController.Initialize();
+        }
+        
+        private void StartGame()
+        {
+            _gameController.StartGame(_storageManager.GetPlayerChips());
         }
 
         private void SubscribeEvents()

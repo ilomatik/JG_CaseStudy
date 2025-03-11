@@ -1,5 +1,3 @@
-using Constants;
-using Events;
 using UnityEngine;
 using Views.BetAreas;
 

@@ -59,18 +59,25 @@ namespace Views
         {
             ChipHolderView holder = _chipPositions.Find(chipHolder => chipHolder.IsEmpty);
             holder.AddChip(chipView);
-            
+            IncreaseChipAmount();
         }
         
         public void RemoveLastChip()
         {
             ChipHolderView holder = _chipPositions.FindLast(chipHolder => !chipHolder.IsEmpty);
             holder.RemoveChip();
+            DecreaseChipAmount();
         }
         
         public void IncreaseChipAmount()
         {
             _chipAmount++;
+            _chipAmountText.text = _chipAmount.ToString();
+        }
+        
+        public void DecreaseChipAmount()
+        {
+            _chipAmount--;
             _chipAmountText.text = _chipAmount.ToString();
         }
     }

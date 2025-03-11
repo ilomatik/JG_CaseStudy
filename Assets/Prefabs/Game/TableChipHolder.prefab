@@ -468,7 +468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &560198150337591803
@@ -732,7 +732,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6964002567514641052
@@ -909,7 +909,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264674265491232706}
-  - component: {fileID: 6509136794435752887}
   m_Layer: 0
   m_Name: ChipHolder1Cost
   m_TagString: Untagged
@@ -943,27 +942,6 @@ Transform:
   - {fileID: 5514399110749882199}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6509136794435752887
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3107467701574739052}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}
 --- !u!1 &3162239736992602859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,7 +1385,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1967748354957611648}
-  - component: {fileID: 7267450568467442048}
   m_Layer: 0
   m_Name: ChipHolder25Cost
   m_TagString: Untagged
@@ -1441,27 +1418,6 @@ Transform:
   - {fileID: 967411354853147500}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7267450568467442048
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4254464375626226561}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}
 --- !u!1 &4270721943348633555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1551,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8818919680350004945}
-  - component: {fileID: 2116847429964731599}
   m_Layer: 0
   m_Name: ChipHolder10Cost
   m_TagString: Untagged
@@ -1629,27 +1584,6 @@ Transform:
   - {fileID: 4486456763754494745}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2116847429964731599
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4594913911822879372}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}
 --- !u!1 &4682467016988135441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,7 +1649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1302393521955111486
@@ -1861,7 +1795,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8826860836638073425}
-  - component: {fileID: 159964348448583207}
   m_Layer: 0
   m_Name: ChipHolder50Cost
   m_TagString: Untagged
@@ -1895,27 +1828,6 @@ Transform:
   - {fileID: 7727080813859372553}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &159964348448583207
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5163799838929769911}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}
 --- !u!1 &5228467156947076450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,7 +1930,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4074671668366905712}
-  - component: {fileID: 5090801384270678199}
   m_Layer: 0
   m_Name: ChipHolder100Cost
   m_TagString: Untagged
@@ -2052,27 +1963,6 @@ Transform:
   - {fileID: 7197959654505619301}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5090801384270678199
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5721291733481979534}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}
 --- !u!1 &5889425116721530725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,7 +2028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &647603571077547744
@@ -2526,7 +2416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3063006296866025916
@@ -2753,7 +2643,7 @@ MonoBehaviour:
     - _position: {fileID: 4633420931130537575}
     - _position: {fileID: 1932400591516475178}
     - _position: {fileID: 5598693245763070475}
-  - _chipAmountText: {fileID: 1566841588053446466}
+  - _chipAmountText: {fileID: 20578197381861444}
     _chipType: 25
     _chipPositions:
     - _position: {fileID: 1203562713313114134}
@@ -2826,7 +2716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.736}
+  m_AnchoredPosition: {x: 0.05, y: 0.736}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8391052468350381083
@@ -3344,7 +3234,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2453664274256522833}
-  - component: {fileID: 7077590691229351928}
   m_Layer: 0
   m_Name: ChipHolder5Cost
   m_TagString: Untagged
@@ -3378,24 +3267,3 @@ Transform:
   - {fileID: 5618326092731531836}
   m_Father: {fileID: 1842654598603139553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7077590691229351928
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127287067601090723}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.81015205, y: 0.90507543, z: 1.5378919}
-  m_Center: {x: -0.0045194626, y: 0.3503148, z: -0.07458806}

@@ -56,12 +56,14 @@ namespace Views
             _wheel.SetSpinDuration(duration);
         }
         
-        public void SpawnChip(ChipType chipType, Vector3 position)
+        public void SpawnChip(ChipType chipType)
         {
-            GameObject chip = Instantiate(_chipPrefab, position, Quaternion.identity);
-            ChipView chipView = chip.GetComponent<ChipView>();
+            GameObject chip     = Instantiate(_chipPrefab);
+            ChipView   chipView = chip.GetComponent<ChipView>();
             chipView.Initialize(chipType);
             chipView.SetChipMaterial(_chipMaterials.Find(material => material.ChipType == chipType).Material);
+            
+            _tableChipHolderView.AddChipToHolder(chipView);
         }
         
         public void SpinWheel(bool isRandom, int wheelStopValue)

@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 5504282205447697008}
   - component: {fileID: 1921333107961071552}
   - component: {fileID: 7394309180719519380}
+  - component: {fileID: 4941142459332111450}
+  - component: {fileID: 2647667425168245296}
+  - component: {fileID: 6693039157903989596}
   m_Layer: 0
   m_Name: Chip
   m_TagString: Untagged
@@ -83,3 +86,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4941142459332111450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916270319119573276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d94c321c7f405b941758a3e83b608d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2647667425168245296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916270319119573276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c44205332a480295907c36799a0b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &6693039157903989596
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916270319119573276}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7902965, y: 0.16872151, z: 0.7902965}
+  m_Center: {x: 0, y: 0, z: 0}

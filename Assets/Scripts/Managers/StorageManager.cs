@@ -134,6 +134,11 @@ namespace Managers
             _player._gamesLost++;
             SavePlayerData(JsonUtility.ToJson(_player));
         }
+        
+        public List<ChipData> GetPlayerChips()
+        {
+            return _player._chips;
+        }
     }
     
     [System.Serializable]
