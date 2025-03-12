@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Enums;
 using UnityEngine;
 using Views.BetAreas;
@@ -59,7 +60,7 @@ namespace Views.Chip
                 }
                 else
                 {
-                    BetArea betArea = hitColliders[0].GetComponent<BetArea>();
+                    BetArea betArea = hitColliders.First(x => x.GetComponent<BetArea>() != null).GetComponent<BetArea>();
                     betArea.PlaceChip(_chipView);
                 }
             }
