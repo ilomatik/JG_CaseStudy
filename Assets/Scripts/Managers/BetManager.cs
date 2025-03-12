@@ -39,7 +39,9 @@ public class BetManager : MonoBehaviour
     {
         List<PlayerBet> winningBets = new List<PlayerBet>();
 
-        if (_playerBets.TryGetValue(playerId, out var playerBet))
+        //if (_playerBets.TryGetValue(playerId, out var playerBet)) { }
+        
+        foreach (var playerBet in _playerBets.Values)
         {
             foreach (var bet in playerBet.GetAllBets())
             {

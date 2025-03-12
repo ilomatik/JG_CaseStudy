@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Controllers;
 using Events;
 using Scripts;
+using Scripts.Bet;
 using UI;
 using UnityEngine;
 using Views.Interfaces;
@@ -64,6 +66,8 @@ namespace Managers
             
             BetEvents.OnBetPlaced  += _betManager.PlaceBet;
             BetEvents.OnBetRemoved += _betManager.RemoveBet;
+            
+            GameEvents.OnWheelSpinComplete += IsBetWinning;
         }
         
         private void UnsubscribeEvents()
@@ -72,6 +76,18 @@ namespace Managers
             
             BetEvents.OnBetPlaced  -= _betManager.PlaceBet;
             BetEvents.OnBetRemoved -= _betManager.RemoveBet;
+            
+            GameEvents.OnWheelSpinComplete -= IsBetWinning;
+        }
+        
+        private void IsBetWinning(int winningNumber)
+        {
+            List<PlayerBet> winningBets = _betManager.GetWinningBets(0, winningNumber);
+            
+            foreach (PlayerBet bet in winningBets)
+            {
+                Debug.Log($"{bet.BetType} is winning!");
+            }
         }
         
         private void OnDestroy()
