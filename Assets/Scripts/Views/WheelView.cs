@@ -9,16 +9,21 @@ namespace Views
     public class WheelView : MonoBehaviour,  IWheelView
     {
         [SerializeField] private List<WheelSlotView> _wheelSegments;
-        [SerializeField] private BallView            _ballView;
+        [SerializeField] private GameObject          _ballView;
         
         private int         _wheelSegmentsCount;
         private int         _stopNumber;
         private float       _spinSpeed;
+        private IBallView   _ball;
         private IEnumerator _spinWheelCoroutine;
         
         public void Initialize()
         {
             _wheelSegmentsCount = _wheelSegments.Count;
+            _ball               = _ballView.GetComponent<IBallView>();
+            _ball.Initialize();
+            _ball.SetBallMovement(5f, 5, 4.5f, 3.75f);
+            _ball.SetWheel(transform);
             
             foreach (WheelSlotView slot in _wheelSegments)
             {
@@ -63,18 +68,20 @@ namespace Views
         {
             while (true)
             {
-                transform.Rotate(Vector3.up, _spinSpeed * Time.deltaTime);
+                //transform.Rotate(Vector3.up, _spinSpeed * Time.deltaTime);
                 yield return null;
             }
         }
         
         private void SpinBall(int stopNumber)
         {
-            _ballView.SpinToSlot(stopNumber, _wheelSegmentsCount, () =>
+            WheelSlotView slot = _wheelSegments.Find(x => x.Value == stopNumber);
+            
+            _ball.SpinToSlot(slot.transform, () =>
             {
                 SetSlotColors(stopNumber);
                 GameEvents.WheelStopSpin();
-                GameEvents.WheelSpinComplete(_wheelSegments[stopNumber].Value);
+                GameEvents.WheelSpinComplete(slot.Value);
             });
         }
         

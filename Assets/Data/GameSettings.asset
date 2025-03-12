@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edefed77e0624e60982ccf2667b336c4, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  _isAmericanWheel: 0
   _randomizeWheelStopValue: 1
   _wheelStopValue: 2
   _wheelSpeed: 20
-  _tableSlotsCount: 36
-  _tableSlotSpacing: 1.1

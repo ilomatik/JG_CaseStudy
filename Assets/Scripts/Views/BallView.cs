@@ -1,47 +1,73 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Views.Interfaces;
 
 namespace Views
 {
-    public class BallView : MonoBehaviour
+    public class BallView : MonoBehaviour, IBallView
     {
-        [SerializeField] private float _radius;
-        [SerializeField] private float _spinDuration;
+        private float     _startRadius;
+        private float     _endRadius;
+        private float     _duration;
+        private float     _currentAngle; 
+        private float     _finalAngle;
+        private int       _minRounds;
+        private Transform _wheel;
+        private Transform _finalSlot;
+        private Action    _onSpinComplete;
 
-        public void SpinToSlot(int slotIndex, int totalSlots, Action onSpinComplete)
+        public void Initialize()
         {
-            StartCoroutine(SpinToSlotCoroutine(slotIndex, totalSlots, onSpinComplete));
+        }
+        
+        public void SetBallMovement(float duration, int minRounds, float startRadius, float endRadius)
+        {
+            _duration    = duration;
+            _minRounds   = minRounds;
+            _startRadius = startRadius;
+            _endRadius   = endRadius;
         }
 
-        private IEnumerator SpinToSlotCoroutine(int slotIndex, int totalSlots, Action onSpinComplete)
+        public void SetWheel(Transform wheel)
         {
-            float elapsed = 0.0f;
-            float startAngle = transform.localRotation.eulerAngles.y;
-            float endAngle = 360.0f * 3 + (slotIndex * (360.0f / totalSlots));
+            _wheel = wheel;
+        }
 
-            while (elapsed < _spinDuration)
+        public void SpinToSlot(Transform finalSlot, Action onSpinComplete)
+        {
+            _finalSlot       = finalSlot;
+            _onSpinComplete  = onSpinComplete;
+            
+            Vector3 direction = finalSlot.position - _wheel.position;
+            _finalAngle       = Mathf.Atan2(direction.z, direction.x);
+            
+            StartCoroutine(SpinBall());
+        }
+
+        private IEnumerator SpinBall()
+        {
+            float elapsed         = 0f;
+            float startRadiusTemp = _startRadius; 
+
+            while (elapsed < _duration)
             {
                 elapsed += Time.deltaTime;
 
-                float time = elapsed / _spinDuration;
-                float angle = Mathf.Lerp(startAngle, endAngle, time * time);
+                float time   = elapsed / _duration;
+                float easedT = 1f - Mathf.Pow(1f - time, 3f);
 
-                float radians = angle * Mathf.Deg2Rad;
-                Vector3 position = new Vector3(Mathf.Sin(radians) * _radius, 0, Mathf.Cos(radians) * _radius);
+                _currentAngle = Mathf.Lerp(0, _minRounds * 2 * Mathf.PI + _finalAngle, easedT);
 
-                transform.localPosition = position;
-                transform.localRotation = Quaternion.Euler(0, angle, 0);
+                float   radius = Mathf.Lerp(startRadiusTemp, _endRadius, easedT);
+                Vector3 newPos = _wheel.position + new Vector3(Mathf.Cos(_currentAngle), 0, Mathf.Sin(_currentAngle)) * radius;
+                transform.position = newPos;
 
                 yield return null;
             }
 
-            float finalRadians = endAngle * Mathf.Deg2Rad;
-            Vector3 finalPosition = new Vector3(Mathf.Sin(finalRadians) * _radius, 0, Mathf.Cos(finalRadians) * _radius);
-
-            transform.localPosition = finalPosition;
-            transform.localRotation = Quaternion.Euler(0, endAngle, 0);
-            onSpinComplete?.Invoke();
+            _onSpinComplete?.Invoke();
+            Debug.Log($"Top {_finalSlot.name} sayısında durdu!");
         }
     }
 }
