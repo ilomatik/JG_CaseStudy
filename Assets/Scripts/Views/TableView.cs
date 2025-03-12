@@ -6,31 +6,33 @@ namespace Views
 {
     public class TableView : MonoBehaviour, IView, ITableView
     {
-        [SerializeField] private Material       _winningMaterial;
-        [SerializeField] private Material       _losingMaterial;
-        [SerializeField] private List<SlotView> _slotViews;
+        [SerializeField] private Material         _winningMaterial;
+        [SerializeField] private List<GameObject> _slotObjects;
         
-        private Dictionary<int, SlotView> _slots;
-        private int                       _slotCount;
+        private Dictionary<int, ITableSlotView> _slots;
+        private List<ITableSlotView>            _slotViews;
+        private int                             _slotCount;
 
         public void Initialize()
         {
-            _slots     = new Dictionary<int, SlotView>();
-            _slotCount = _slotViews.Count;
+            _slots     = new Dictionary<int, ITableSlotView>();
+            _slotViews = new List<ITableSlotView>();
+            _slotCount = _slotObjects.Count;
             
             for (int i = 0; i < _slotCount; i++)
             {
-                SlotView slot = _slotViews[i];
-                slot.Initialize(_winningMaterial, _losingMaterial);
+                ITableSlotView slot = _slotObjects[i].GetComponent<ITableSlotView>();
+                slot.Initialize(_winningMaterial);
+                _slotViews.Add(slot);
                 _slots.Add(slot.SlotNumber, slot);
             }
         }
 
         public void ShowWinningSlot(int winningNumber)
         {
-            foreach (KeyValuePair<int, SlotView> slot in _slots)
+            foreach (KeyValuePair<int, ITableSlotView> slot in _slots)
             {
-                SlotView slotView = slot.Value;
+                ITableSlotView slotView = slot.Value;
                 
                 if (slot.Key == winningNumber)
                 {
@@ -39,14 +41,14 @@ namespace Views
                 }
                 else
                 {
-                    slotView.ChangeLosingColor();
+                    //slotView.ChangeLosingColor();
                 }
             }
         }
         
         public void ResetSlots()
         {
-            foreach (SlotView slot in _slotViews)
+            foreach (ITableSlotView slot in _slotViews)
             {
                 slot.ChangeDefaultColor();
             }

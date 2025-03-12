@@ -1,9 +1,10 @@
 using TMPro;
 using UnityEngine;
+using Views.Interfaces;
 
 namespace Views
 {
-    public class SlotView : MonoBehaviour
+    public class SlotView : MonoBehaviour, ITableSlotView
     {
         [SerializeField] private TextMeshPro _slotNumberText;
         [SerializeField] private int         _slotNumber;
@@ -11,29 +12,21 @@ namespace Views
         private MeshRenderer _meshRenderer;
         private Material     _defaultMaterial;
         private Material     _winningMaterial;
-        private Material     _losingMaterial;
-
-        public int SlotNumber => _slotNumber;
         
-        public void Initialize(Material winningMaterial, Material losingMaterial)
+        public int           SlotNumber { get; private set; }
+        
+        public void Initialize(Material winningMaterial)
         {
-            _winningMaterial = winningMaterial;
-            _losingMaterial  = losingMaterial;
-            
-            _meshRenderer    = GetComponent<MeshRenderer>();
-            _defaultMaterial = _meshRenderer.material;
-            
+            _winningMaterial     = winningMaterial;
+            _meshRenderer        = GetComponent<MeshRenderer>();
+            _defaultMaterial     = _meshRenderer.material;
+            SlotNumber           = _slotNumber;
             _slotNumberText.text = SlotNumber.ToString();
         }
         
         public void ChangeWinningColor()
         {
             _meshRenderer.material = _winningMaterial;
-        }
-        
-        public void ChangeLosingColor()
-        {
-            _meshRenderer.material = _losingMaterial;
         }
         
         public void ChangeDefaultColor()

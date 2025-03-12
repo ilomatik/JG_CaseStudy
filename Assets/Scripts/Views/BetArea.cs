@@ -4,28 +4,37 @@ using Enums;
 using Events;
 using UnityEngine;
 using Views.Chip;
+using Views.Interfaces;
 
 namespace Views.BetAreas
 {
     public class BetArea : MonoBehaviour
     {
-        [SerializeField] private int            _id;
-        [SerializeField] private BetType        _betType;
-        [SerializeField] private List<SlotView> _slots;
+        [SerializeField] private int              _id;
+        [SerializeField] private BetType          _betType;
+        [SerializeField] private List<GameObject> _slotObjects;
         
         public int     Id      => _id;
         public BetType BetType => _betType;
         
-        private List<ChipView> _placedChips;
-        
+        private List<ChipView>       _placedChips;
+        private List<ITableSlotView> _slots;
+
         public void Initialize()
         {
             _placedChips = new List<ChipView>();
+            
+            _slots = new List<ITableSlotView>();
+            
+            foreach (GameObject slotObject in _slotObjects)
+            {
+                _slots.Add(slotObject.GetComponent<ITableSlotView>());
+            }
         }
 
         public bool IsBetWinning(int winningNumber)
         {
-            foreach (SlotView slot in _slots)
+            foreach (ITableSlotView slot in _slots)
             {
                 if (slot.SlotNumber == winningNumber)
                 {
@@ -34,7 +43,6 @@ namespace Views.BetAreas
                     Debug.Log($"{BetType} is winning!");
                     return true;
                 }
-                slot.ChangeLosingColor();
             }
 
             Debug.Log($"{BetType} is losing!");
@@ -67,7 +75,7 @@ namespace Views.BetAreas
         {
             List<int> slotNumbers = new List<int>();
             
-            foreach (SlotView slot in _slots)
+            foreach (ITableSlotView slot in _slots)
             {
                 slotNumbers.Add(slot.SlotNumber);
             }

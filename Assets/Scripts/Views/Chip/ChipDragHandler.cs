@@ -5,6 +5,7 @@ using Enums;
 using Events;
 using UnityEngine;
 using Views.BetAreas;
+using Views.Interfaces;
 
 namespace Views.Chip
 {
@@ -87,7 +88,7 @@ namespace Views.Chip
 
             foreach (Collider col in hitColliders)
             {
-                SlotView slot = col.GetComponent<SlotView>();
+                ITableSlotView slot = col.GetComponent<ITableSlotView>();
                 
                 if (slot != null)
                 {
