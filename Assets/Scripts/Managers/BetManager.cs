@@ -21,6 +21,10 @@ public class BetManager : MonoBehaviour
         }
 
         _playerBets[playerId].AddBet(betType, numbers, chipValue);
+        
+        string numbersString = string.Join(", ", numbers);
+        
+        Debug.Log("Bet placed: " + betType + " " + numbersString + " " + chipValue);
     }
     
     public void RemoveBet(int playerId, BetType betType, List<int> numbers, ChipType chipValue)

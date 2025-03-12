@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Constants;
 using Enums;
+using Events;
 using UnityEngine;
 using Views.BetAreas;
 
@@ -112,7 +114,10 @@ namespace Views.Chip
                     betType = BetType.Corner;
                 }
                 
-                Debug.Log("Detected bet type: " + betType);
+                BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), 
+                                   betType, 
+                                   detectedNumbers, 
+                                   _chipView.ChipType);
                 
                 return true;
             }
