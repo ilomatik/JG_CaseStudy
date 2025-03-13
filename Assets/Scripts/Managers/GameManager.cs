@@ -28,9 +28,10 @@ namespace Managers
         [SerializeField] private BetManager     _betManager;
         
         
-        private string         _playerNameHolder;
-        private GameController _gameController;
-        private GameUIView     _gameUIViewComponent;
+        private string           _playerNameHolder;
+        private GameController   _gameController;
+        private PayoutController _payoutController;
+        private GameUIView       _gameUIViewComponent;
 
         private void Start()
         {
@@ -39,6 +40,7 @@ namespace Managers
             
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
             _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings);
+            _payoutController    = new PayoutController();
             
             Initialize();
             
@@ -88,6 +90,7 @@ namespace Managers
             {
                 BetType betType = bet.BetType;
                 float   payout  = PayoutCalculator.CalculatePayoutAmount(betType, false, bet.TotalChipValue);
+                _payoutController.PayoutToPlayer((int)payout);
                 Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
         }
