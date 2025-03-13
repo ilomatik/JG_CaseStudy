@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using Views.Interfaces;
 
@@ -6,7 +5,6 @@ namespace Views
 {
     public class SlotView : MonoBehaviour, ITableSlotView
     {
-        [SerializeField] private TextMeshPro _slotNumberText;
         [SerializeField] private int         _slotNumber;
         
         private MeshRenderer _meshRenderer;
@@ -21,7 +19,6 @@ namespace Views
             _meshRenderer        = GetComponent<MeshRenderer>();
             _defaultMaterial     = _meshRenderer.material;
             SlotNumber           = _slotNumber;
-            _slotNumberText.text = SlotNumber.ToString();
         }
 
         public void ChangeWinningColor()

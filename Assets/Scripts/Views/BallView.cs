@@ -54,11 +54,12 @@ namespace Views
 
                 float time   = elapsed / _duration;
                 float easedT = 1f - Mathf.Pow(1f - time, 3f);
-
+                
                 _currentAngle = Mathf.Lerp(0, _minRounds * 2 * Mathf.PI + _finalAngle, easedT);
 
-                float   radius = Mathf.Lerp(startRadiusTemp, _endRadius, easedT);
-                Vector3 newPos = _wheel.position + new Vector3(Mathf.Cos(_currentAngle), 0, Mathf.Sin(_currentAngle)) * radius;
+                float radius = Mathf.Lerp(startRadiusTemp, _endRadius, easedT);
+                
+                Vector3 newPos = _wheel.position + new Vector3(Mathf.Cos(_currentAngle), -0.2f, Mathf.Sin(_currentAngle)) * radius;
                 transform.position = newPos;
 
                 yield return null;

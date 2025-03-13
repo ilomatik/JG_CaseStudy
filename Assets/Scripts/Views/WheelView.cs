@@ -10,6 +10,7 @@ namespace Views
     {
         [SerializeField] private List<WheelSlotView> _wheelSegments;
         [SerializeField] private GameObject          _ballView;
+        [SerializeField] private Transform           _ballParent;
         
         private int         _wheelSegmentsCount;
         private int         _stopNumber;
@@ -22,13 +23,8 @@ namespace Views
             _wheelSegmentsCount = _wheelSegments.Count;
             _ball               = _ballView.GetComponent<IBallView>();
             _ball.Initialize();
-            _ball.SetBallMovement(5f, 5, 4.5f, 3.75f);
-            _ball.SetWheel(transform);
-            
-            foreach (WheelSlotView slot in _wheelSegments)
-            {
-                slot.Initialize();
-            }
+            _ball.SetBallMovement(5f, 5, 4.25f, 3.5f);
+            _ball.SetWheel(_ballParent);
         }
 
         public void Show()
@@ -89,15 +85,6 @@ namespace Views
             for (int i = 0; i < _wheelSegmentsCount; i++)
             {
                 WheelSlotView slot = _wheelSegments[i];
-                
-                if (slot.Value == stopNumber)
-                {
-                    slot.ChangeWinningColor();
-                }
-                else
-                {
-                    slot.ChangeLosingColor();
-                }
             }
         }
 
@@ -106,7 +93,6 @@ namespace Views
             for (int i = 0; i < _wheelSegmentsCount; i++)
             {
                 WheelSlotView slot = _wheelSegments[i];
-                slot.ChangeDefaultColor();
             }
         }
     }
