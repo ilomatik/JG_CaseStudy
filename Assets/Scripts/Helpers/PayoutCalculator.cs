@@ -3,7 +3,7 @@ using Enums;
 
 namespace Scripts.Helpers
 {
-    public class PayoutCalculator
+    public static class PayoutCalculator
     {
         private const int EuropeanNumbers = 37;
         private const int AmericanNumbers = 38;

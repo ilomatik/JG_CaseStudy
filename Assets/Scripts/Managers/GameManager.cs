@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Controllers;
+using Enums;
 using Events;
 using Scripts;
 using Scripts.Bet;
+using Scripts.Helpers;
 using UI;
 using UnityEngine;
 using Views.Interfaces;
@@ -84,7 +86,9 @@ namespace Managers
             
             foreach (PlayerBet bet in winningBets)
             {
-                Debug.Log($"{bet.BetType} is winning!");
+                BetType betType = bet.BetType;
+                float   payout  = PayoutCalculator.CalculatePayoutAmount(betType, false, bet.TotalChipValue);
+                Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
         }
         

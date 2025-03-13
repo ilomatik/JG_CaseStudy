@@ -14,7 +14,6 @@ namespace Views
         private float     _finalAngle;
         private int       _minRounds;
         private Transform _wheel;
-        private Transform _finalSlot;
         private Action    _onSpinComplete;
 
         public void Initialize()
@@ -36,7 +35,6 @@ namespace Views
 
         public void SpinToSlot(Transform finalSlot, Action onSpinComplete)
         {
-            _finalSlot       = finalSlot;
             _onSpinComplete  = onSpinComplete;
             
             Vector3 direction = finalSlot.position - _wheel.position;
