@@ -55,7 +55,7 @@ namespace Managers
         private void Initialize()
         {
             _storageManager.Initialize(_playerName);
-            _betManager    .Initialize();
+            _betManager    .Initialize(_storageManager);
             _gameController.Initialize();
         }
         

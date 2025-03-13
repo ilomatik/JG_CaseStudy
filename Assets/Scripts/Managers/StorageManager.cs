@@ -139,6 +139,13 @@ namespace Managers
         {
             return _player._chips;
         }
+        
+        public int GetPlayerChipAmount(string chipType)
+        {
+            ChipData chipData = _player._chips.FirstOrDefault(chip => chip.chipType == chipType);
+            
+            return chipData?.amount ?? 0;
+        }
     }
     
     [System.Serializable]

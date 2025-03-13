@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Enums;
+using Events;
+using Managers;
 using Scripts.Bet;
 using Scripts.Helpers;
 using UnityEngine;
@@ -7,10 +9,12 @@ using UnityEngine;
 public class BetManager : MonoBehaviour
 {
     private Dictionary<int, PlayerBetHolder> _playerBets;
+    private StorageManager                   _storageManager;
 
-    public void Initialize()
+    public void Initialize(StorageManager storageManager)
     {
-        _playerBets = new Dictionary<int, PlayerBetHolder>();
+        _storageManager = storageManager;
+        _playerBets     = new Dictionary<int, PlayerBetHolder>();
     }
 
     public void PlaceBet(int playerId, BetType betType, List<int> numbers, ChipType chipValue)
@@ -19,8 +23,9 @@ public class BetManager : MonoBehaviour
         {
             _playerBets[playerId] = new PlayerBetHolder();
         }
-
+        
         _playerBets[playerId].AddBet(betType, numbers, chipValue);
+        GameEvents.ChangeChipAmount(chipValue.ToString(), -1);
         
         string numbersString = string.Join(", ", numbers);
         
@@ -32,6 +37,7 @@ public class BetManager : MonoBehaviour
         if (_playerBets.TryGetValue(playerId, out var bet))
         {
             bet.RemoveBet(betType, numbers, chipValue);
+            GameEvents.ChangeChipAmount(chipValue.ToString(), 1);
         }
     }
 
