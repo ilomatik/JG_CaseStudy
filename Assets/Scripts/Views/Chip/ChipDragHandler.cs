@@ -16,6 +16,7 @@ namespace Views.Chip
         private bool     _isDragging = false;
         private Camera   _mainCamera;
         private ChipView _chipView;
+        private BetArea  _betArea;
 
         private void Start()
         {
@@ -65,6 +66,8 @@ namespace Views.Chip
                 {
                     BetArea betArea = hitColliders.First(x => x.GetComponent<BetArea>() != null).GetComponent<BetArea>();
                     betArea.PlaceChip(_chipView);
+                    _betArea = betArea;
+                    GameEvents.PlaceChip(gameObject);
                 }
             }
         }
@@ -79,6 +82,19 @@ namespace Views.Chip
         private void ReturnToStart()
         {
             transform.position = _initialPosition;
+            
+            if (_chipView.IsOnBetArea)
+            {
+                //GameEvents.RemoveChip(, gameObject);
+
+                if (_betArea != null)
+                {
+                    BetEvents.RemoveBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER),
+                                        _betArea.BetType, 
+                                        _chipView.GetSlotNumbers(),
+                                        _chipView.ChipType);
+                }
+            }
         }
         
         private bool DetectBetArea()
@@ -115,6 +131,9 @@ namespace Views.Chip
                     betType = BetType.Corner;
                 }
                 
+                _chipView.SetOnBetArea(true);
+                _chipView.SetSlotNumbers(detectedNumbers);
+                GameEvents.PlaceChip(gameObject);
                 BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), 
                                    betType, 
                                    detectedNumbers, 

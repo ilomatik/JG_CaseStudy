@@ -11,7 +11,8 @@ namespace Views.Interfaces
         void SpawnChip(ChipType chipType);
         void SpinWheel(bool isRandom, int wheelStopValue);
         void ShowResult(int value);
-        void PlaceChip(int betAreaId, GameObject chip);
+        void PlaceChip(GameObject chip);
         void RemoveChip(int betAreaId, GameObject chip);
+        void ClearPlacedChips();
     }
 }

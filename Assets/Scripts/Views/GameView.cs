@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Constants;
 using Enums;
+using Events;
 using UnityEngine;
 using Views.BetAreas;
 using Views.Chip;
@@ -14,6 +16,7 @@ namespace Views
         [Header("Game Objects")]
         [SerializeField] private GameObject         _wheelObject;
         [SerializeField] private GameObject         _tableObject;
+        [SerializeField] private Transform          _chipMoveTarget;
         
         [Header("Chip Objects")]
         [SerializeField] private GameObject         _chipPrefab;
@@ -27,6 +30,7 @@ namespace Views
         private IWheelView           _wheel;
         private ITableView           _table;
         private ITableChipHolderView _tableChipHolderView;
+        private List<ChipView>       _placedChips;
 
         public void Initialize()
         {
@@ -35,6 +39,7 @@ namespace Views
             _wheel               = _wheelObject.GetComponent<IWheelView>();
             _table               = _tableObject.GetComponent<ITableView>();
             _tableChipHolderView = _tableChipHolder.GetComponent<ITableChipHolderView>();
+            _placedChips         = new List<ChipView>();
 
             _table.Initialize();
             _wheel.Initialize();
@@ -86,16 +91,34 @@ namespace Views
             _table.ShowWinningSlot(value);
         }
         
-        public void PlaceChip(int betAreaId, GameObject chip)
+        public void PlaceChip(GameObject chip)
         {
-            BetArea betArea = _betAreas.Find(area => area.Id == betAreaId);
-            betArea.PlaceChip(chip.GetComponent<ChipView>());
+            ChipView chipView = chip.GetComponent<ChipView>();
+            _placedChips.Add(chipView);
         }
         
         public void RemoveChip(int betAreaId, GameObject chip)
         {
-            BetArea betArea = _betAreas.Find(area => area.Id == betAreaId);
-            betArea.RemoveChip(chip.GetComponent<ChipView>());
+            ChipView chipView = chip.GetComponent<ChipView>();
+            BetArea  betArea  = _betAreas.Find(area => area.Id == betAreaId);
+            
+            betArea.RemoveChip(chipView);
+            chipView.MoveTo(_chipMoveTarget.position, () => Destroy(chip));
+        }
+        
+        public async void ClearPlacedChips()
+        {
+            await Task.Delay(1000);
+
+            GameEvents.WheelStopSpin();
+            if (_placedChips.Count == 0) return;
+            
+            foreach (ChipView chip in _placedChips)
+            {
+                chip.MoveTo(_chipMoveTarget.position, () => Destroy(chip.gameObject));
+            }
+            
+            _placedChips.Clear();
         }
     }
     

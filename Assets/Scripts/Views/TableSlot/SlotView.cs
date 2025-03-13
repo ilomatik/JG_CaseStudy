@@ -23,7 +23,7 @@ namespace Views
             SlotNumber           = _slotNumber;
             _slotNumberText.text = SlotNumber.ToString();
         }
-        
+
         public void ChangeWinningColor()
         {
             _meshRenderer.material = _winningMaterial;

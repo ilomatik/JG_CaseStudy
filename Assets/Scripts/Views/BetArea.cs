@@ -55,7 +55,10 @@ namespace Views.BetAreas
             chip.transform.position = GetPlacementPosition();
             chip.SetOnBetArea(true);
             
+            List<int> slotNumbers = GetSlotNumbers();
+            
             _placedChips.Add(chip.transform.GetComponent<ChipView>());
+            chip.SetSlotNumbers(slotNumbers);
             
             BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), _betType, GetSlotNumbers(), chip.ChipType);
         }

@@ -67,7 +67,6 @@ namespace Views
             }
 
             _onSpinComplete?.Invoke();
-            Debug.Log($"Top {_finalSlot.name} sayısında durdu!");
         }
     }
 }

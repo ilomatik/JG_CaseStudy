@@ -35,16 +35,14 @@ namespace Controllers
         {
             GameEvents.OnSpinButtonClicked += SpinWheel;
             GameEvents.OnWheelSpinComplete += ShowResult;
-            GameEvents.OnChipPlaced        += AddBet;
-            GameEvents.OnChipRemoved       += RemoveBet;
+            GameEvents.OnPlaceChip         += AddChip;
         }
         
         public void UnsubscribeEvents()
         {
             GameEvents.OnSpinButtonClicked -= SpinWheel;
             GameEvents.OnWheelSpinComplete -= ShowResult;
-            GameEvents.OnChipPlaced        -= AddBet;
-            GameEvents.OnChipRemoved       -= RemoveBet;
+            GameEvents.OnPlaceChip         -= AddChip;
         }
         
         public void StartGame(List<ChipData> playerChips)
@@ -67,24 +65,15 @@ namespace Controllers
             _view.SpinWheel(_settings.RandomizeWheelStopValue, _settings.WheelStopValue);
         }
         
+        private void AddChip(GameObject chip)
+        {
+            _view.PlaceChip(chip);
+        }
+        
         private void ShowResult(int value)
         {
             _view.ShowResult(value);
-        }
-        
-        private void AddBet(int betAreaId, GameObject chip)
-        {
-            _view.PlaceChip(betAreaId, chip);
-        }
-        
-        private void RemoveBet(int betAreaId, GameObject chip)
-        {
-            _view.RemoveChip(betAreaId, chip);
-        }
-        
-        private void ClearBets()
-        {
-            _data.ClearBets();
+            _view.ClearPlacedChips();
         }
     }
 }

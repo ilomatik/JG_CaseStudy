@@ -23,8 +23,9 @@ namespace Views
             {
                 ITableSlotView slot = _slotObjects[i].GetComponent<ITableSlotView>();
                 slot.Initialize(_winningMaterial);
+                
                 _slotViews.Add(slot);
-                _slots.Add(slot.SlotNumber, slot);
+                _slots    .Add(slot.SlotNumber, slot);
             }
         }
 

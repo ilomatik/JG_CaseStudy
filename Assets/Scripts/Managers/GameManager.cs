@@ -63,21 +63,19 @@ namespace Managers
         private void SubscribeEvents()
         {
             GameEvents.OnChipAmountChanged += _storageManager.UpdateChipAmount;
+            GameEvents.OnWheelSpinComplete += IsBetWinning;
             
             BetEvents.OnBetPlaced  += _betManager.PlaceBet;
             BetEvents.OnBetRemoved += _betManager.RemoveBet;
-            
-            GameEvents.OnWheelSpinComplete += IsBetWinning;
         }
         
         private void UnsubscribeEvents()
         {
             GameEvents.OnChipAmountChanged -= _storageManager.UpdateChipAmount;
+            GameEvents.OnWheelSpinComplete -= IsBetWinning;
             
             BetEvents.OnBetPlaced  -= _betManager.PlaceBet;
             BetEvents.OnBetRemoved -= _betManager.RemoveBet;
-            
-            GameEvents.OnWheelSpinComplete -= IsBetWinning;
         }
         
         private void IsBetWinning(int winningNumber)

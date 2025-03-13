@@ -43,7 +43,7 @@ namespace Views
 
         public void SetStopNumber(bool isRandomize, int stopNumber)
         {
-            _stopNumber = isRandomize ? Random.Range(0, _wheelSegmentsCount) : stopNumber;
+            _stopNumber = isRandomize ? Random.Range(1, _wheelSegmentsCount) : stopNumber;
         }
         
         public void SetSpinDuration(float spinSpeed)
@@ -80,7 +80,6 @@ namespace Views
             _ball.SpinToSlot(slot.transform, () =>
             {
                 SetSlotColors(stopNumber);
-                GameEvents.WheelStopSpin();
                 GameEvents.WheelSpinComplete(slot.Value);
             });
         }
@@ -91,7 +90,7 @@ namespace Views
             {
                 WheelSlotView slot = _wheelSegments[i];
                 
-                if (i == stopNumber)
+                if (slot.Value == stopNumber)
                 {
                     slot.ChangeWinningColor();
                 }
