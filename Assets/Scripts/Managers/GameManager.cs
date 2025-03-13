@@ -66,7 +66,7 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            GameEvents.OnChipAmountChanged += _storageManager.UpdateChipAmount;
+            GameEvents.OnChipAmountChanged += OnUpdateChipAmount;
             GameEvents.OnWheelSpinComplete += IsBetWinning;
             
             BetEvents.OnBetPlaced  += _betManager.PlaceBet;
@@ -75,7 +75,7 @@ namespace Managers
         
         private void UnsubscribeEvents()
         {
-            GameEvents.OnChipAmountChanged -= _storageManager.UpdateChipAmount;
+            GameEvents.OnChipAmountChanged -= OnUpdateChipAmount;
             GameEvents.OnWheelSpinComplete -= IsBetWinning;
             
             BetEvents.OnBetPlaced  -= _betManager.PlaceBet;
@@ -93,6 +93,16 @@ namespace Managers
                 _payoutController.PayoutToPlayer((int)payout);
                 Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
+        }
+        
+        private void OnUpdateChipAmount(string chipType, int amount)
+        {
+            _storageManager.UpdateChipAmount(chipType, amount);
+
+            if (amount <= 0) return;
+            
+            ChipType chip = EnumComparison.GetChipType(chipType);
+            _gameController.AddChipToHolder(chip);
         }
         
         private void OnDestroy()

@@ -27,12 +27,12 @@ namespace Controllers
             int five        = amount / 5;
             amount         -= five * 5;
             
-            GameEvents.OnChipAmountChanged(ChipType.Hundred.ToString(), hundred);
-            GameEvents.OnChipAmountChanged(ChipType.Fifty.ToString(), fifty);
-            GameEvents.OnChipAmountChanged(ChipType.TwentyFive.ToString(), twentyFive);
-            GameEvents.OnChipAmountChanged(ChipType.Ten.ToString(), ten);
-            GameEvents.OnChipAmountChanged(ChipType.Five.ToString(), five);
-            GameEvents.OnChipAmountChanged(ChipType.One.ToString(), amount);
+            GameEvents.ChangeChipAmount(ChipType.Hundred.ToString(), hundred);
+            GameEvents.ChangeChipAmount(ChipType.Fifty.ToString(), fifty);
+            GameEvents.ChangeChipAmount(ChipType.TwentyFive.ToString(), twentyFive);
+            GameEvents.ChangeChipAmount(ChipType.Ten.ToString(), ten);
+            GameEvents.ChangeChipAmount(ChipType.Five.ToString(), five);
+            GameEvents.ChangeChipAmount(ChipType.One.ToString(), amount);
         }
     }
 }

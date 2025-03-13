@@ -59,6 +59,11 @@ namespace Controllers
                 }
             }
         }
+        
+        public void AddChipToHolder(ChipType chipType)
+        {
+            _view.SpawnChip(chipType);
+        }
 
         private void SpinWheel()
         {
