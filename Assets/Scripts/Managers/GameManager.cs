@@ -77,9 +77,10 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            GameEvents.OnChipAmountChanged += OnUpdateChipAmount;
-            GameEvents.OnWheelSpinComplete += IsBetWinning;
-            GameEvents.OnShopButtonClicked += ShowShopPopup;
+            GameEvents.OnChipAmountChanged       += OnUpdateChipAmount;
+            GameEvents.OnWheelSpinComplete       += IsBetWinning;
+            GameEvents.OnShopButtonClicked       += ShowShopPopup;
+            GameEvents.OnStatisticsButtonClicked += ShowStatisticsPopup;
             
             BetEvents.OnBetPlaced  += _bet.PlaceBet;
             BetEvents.OnBetRemoved += _bet.RemoveBet;
@@ -87,9 +88,10 @@ namespace Managers
         
         private void UnsubscribeEvents()
         {
-            GameEvents.OnChipAmountChanged -= OnUpdateChipAmount;
-            GameEvents.OnWheelSpinComplete -= IsBetWinning;
-            GameEvents.OnShopButtonClicked -= ShowShopPopup;
+            GameEvents.OnChipAmountChanged       -= OnUpdateChipAmount;
+            GameEvents.OnWheelSpinComplete       -= IsBetWinning;
+            GameEvents.OnShopButtonClicked       -= ShowShopPopup;
+            GameEvents.OnStatisticsButtonClicked -= ShowStatisticsPopup;
             
             BetEvents.OnBetPlaced  -= _bet.PlaceBet;
             BetEvents.OnBetRemoved -= _bet.RemoveBet;
@@ -146,6 +148,23 @@ namespace Managers
         private void ShowShopPopup()
         {
             _popup.ShowPopup(PopupNames.ShopPopup);
+        }
+        
+        private void ShowStatisticsPopup()
+        {
+            string playerName  = _storage.Player._playerName;
+            int    gamesWon    = _storage.Player._gamesWon;
+            int    gamesLost   = _storage.Player._gamesLost;
+            int    gamesPlayed = _storage.Player._gamesPlayed;
+            string lastLogin   = _storage.Player._lastLoginTime;
+            
+            string stats = $"Player: {playerName}\n" +
+                           $"Games Won: {gamesWon}\n" +
+                           $"Games Lost: {gamesLost}\n" +
+                           $"Games Played: {gamesPlayed}\n" +
+                           $"Last Login: {lastLogin}";
+            
+            _popup.ShowPopup(PopupNames.StatsPopup, new PopupInfo(stats));
         }
         
         private void OnDestroy()

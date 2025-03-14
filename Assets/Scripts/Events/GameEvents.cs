@@ -28,6 +28,7 @@ namespace Events
         public static Action<string, int> OnChipAmountChanged;
         
         public static Action OnShopButtonClicked;
+        public static Action OnStatisticsButtonClicked;
         
         
         // Invoke the event
@@ -50,7 +51,8 @@ namespace Events
         public static void ClickSpinButton()                               { OnSpinButtonClicked?.Invoke(); }
         public static void ChangeChipAmount(string chipAmount, int amount) { OnChipAmountChanged?.Invoke(chipAmount, amount); }
         
-        public static void ClickShopButton() { OnShopButtonClicked?.Invoke(); }
+        public static void ClickShopButton()       { OnShopButtonClicked?.Invoke(); }
+        public static void ClickStatisticsButton() { OnStatisticsButtonClicked?.Invoke(); }
         
     }
     

@@ -11,11 +11,13 @@ namespace UI
         [SerializeField] private TMP_InputField  _winningNumberInputField;
         [SerializeField] private Button          _spinButton;
         [SerializeField] private Button          _shopButton;
-        
+        [SerializeField] private Button          _statisticsButton;
+
         private void Start()
         {
-            _spinButton.onClick.AddListener(OnSpinButtonClicked);
-            _shopButton.onClick.AddListener(GameEvents.ClickShopButton);
+            _spinButton      .onClick.AddListener(OnSpinButtonClicked);
+            _shopButton      .onClick.AddListener(GameEvents.ClickShopButton);
+            _statisticsButton.onClick.AddListener(GameEvents.ClickStatisticsButton);
         }
         
         private void OnEnable()
