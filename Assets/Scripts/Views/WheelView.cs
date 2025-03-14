@@ -77,6 +77,7 @@ namespace Views
             {
                 SetSlotColors(stopNumber);
                 GameEvents.WheelSpinComplete(slot.Value);
+                ParticleEvents.BallStopOnWheelSlotParticle(slot.transform.position);
             });
         }
         

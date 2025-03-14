@@ -92,6 +92,11 @@ namespace Views
 
         public void AddChip(ChipView chipView)
         {
+            if (_chipAmount >= _chipPositions.Count)
+            {
+                return;
+            }
+            
             ChipHolderView holder = _chipPositions.Find(chipHolder => chipHolder.IsEmpty);
             holder.AddChip(chipView);
             IncreaseChipAmount();

@@ -26,27 +26,31 @@ namespace Managers
         [SerializeField] private GameSettings _gameSettings;
         
         [Header("Managers")]
-        [SerializeField] private StorageManager _storageManager;
-        [SerializeField] private BetManager     _betManager;
-        [SerializeField] private PopupManager   _popupManager;
+        [SerializeField] private StorageManager  _storageManager;
+        [SerializeField] private BetManager      _betManager;
+        [SerializeField] private PopupManager    _popupManager;
+        [SerializeField] private ParticleManager _particleManager;
+        
 
         private string           _playerNameHolder;
         private GameController   _gameController;
         private PayoutController _payoutController;
         private GameUIView       _gameUIViewComponent;
         
-        private IStorageManager _storage;
-        private IBetManager     _bet;
-        private IPopupManager   _popup;
+        private IStorageManager  _storage;
+        private IBetManager      _bet;
+        private IPopupManager    _popup;
+        private IParticleManager _particle;
 
         private void Start()
         {
             GameObject gameView   = Instantiate(_gameView, _viewContainer);
             GameObject gameUIView = Instantiate(_gameUIView, _uiContainer);
             
-            _storage = _storageManager;
-            _bet     = _betManager;
-            _popup   = _popupManager;
+            _storage  = _storageManager;
+            _bet      = _betManager;
+            _popup    = _popupManager;
+            _particle = _particleManager;
             
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
             _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings, _gameUIViewComponent);
@@ -82,6 +86,11 @@ namespace Managers
             GameEvents.OnShopButtonClicked       += ShowShopPopup;
             GameEvents.OnStatisticsButtonClicked += ShowStatisticsPopup;
             
+            ParticleEvents.OnDropChipParticle            += PlayOnDropChipParticle;
+            ParticleEvents.OnWinParticle                 += PlayOnWinParticle;
+            ParticleEvents.OnNumberWinParticle           += PlayOnNumberWinParticle;
+            ParticleEvents.OnBallStopOnWheelSlotParticle += PlayOnBallStopOnWheelSlotParticle;
+            
             BetEvents.OnBetPlaced  += _bet.PlaceBet;
             BetEvents.OnBetRemoved += _bet.RemoveBet;
         }
@@ -92,6 +101,11 @@ namespace Managers
             GameEvents.OnWheelSpinComplete       -= IsBetWinning;
             GameEvents.OnShopButtonClicked       -= ShowShopPopup;
             GameEvents.OnStatisticsButtonClicked -= ShowStatisticsPopup;
+            
+            ParticleEvents.OnDropChipParticle            -= PlayOnDropChipParticle;
+            ParticleEvents.OnWinParticle                 -= PlayOnWinParticle;
+            ParticleEvents.OnNumberWinParticle           -= PlayOnNumberWinParticle;
+            ParticleEvents.OnBallStopOnWheelSlotParticle -= PlayOnBallStopOnWheelSlotParticle;
             
             BetEvents.OnBetPlaced  -= _bet.PlaceBet;
             BetEvents.OnBetRemoved -= _bet.RemoveBet;
@@ -111,6 +125,7 @@ namespace Managers
                 
                 _storage.IncrementGamesWon();
                 ShowWinPopup(new PopupInfo("You won! You won " + payout + "chips!"));
+                PlayOnWinParticle(Vector3.zero);
                 Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
             
@@ -130,11 +145,16 @@ namespace Managers
             _storage.UpdateChipAmount(chipType, amount);
 
             if (amount <= 0) return;
-            
-            ChipType chip = EnumComparison.GetChipType(chipType);
-            _gameController.AddChipToHolder(chip);
+
+            for (int c = 0; c < amount; c++)
+            {
+                ChipType chip = EnumComparison.GetChipType(chipType);
+                _gameController.AddChipToHolder(chip);
+            }
         }
-        
+
+        #region Popups
+
         private void ShowWinPopup(PopupInfo popupInfo)
         {
             _popup.ShowPopup(PopupNames.WinPopup, popupInfo);
@@ -166,6 +186,36 @@ namespace Managers
             
             _popup.ShowPopup(PopupNames.StatsPopup, new PopupInfo(stats));
         }
+        
+        #endregion
+
+        #region Particle Effects
+        
+        private void PlayOnDropChipParticle(Vector3 position)
+        {
+            Debug.Log("Playing Drop Chip Particle");
+            _particle.PlayOnDropChipParticle(position);
+        }
+        
+        private void PlayOnWinParticle(Vector3 position)
+        {
+            Debug.Log("Playing Win Particle");
+            _particle.PlayOnWinParticle(position);
+        }
+        
+        private void PlayOnNumberWinParticle(Vector3 position)
+        {
+            Debug.Log("Playing Number Win Particle");
+            _particle.PlayOnNumberWinParticle(position);
+        }
+
+        private void PlayOnBallStopOnWheelSlotParticle(Vector3 position)
+        {
+            Debug.Log("Playing Ball Stop On Wheel Slot Particle");
+            _particle.PlayOnBallStopOnWheelSlotParticle(position);
+        }
+
+        #endregion
         
         private void OnDestroy()
         {

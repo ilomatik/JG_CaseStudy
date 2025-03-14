@@ -194,6 +194,7 @@ MonoBehaviour:
   _storageManager: {fileID: 2146820191}
   _betManager: {fileID: 891916908}
   _popupManager: {fileID: 1595032521}
+  _particleManager: {fileID: 1978299663}
 --- !u!4 &381572167
 Transform:
   m_ObjectHideFlags: 0
@@ -863,6 +864,55 @@ MonoBehaviour:
   - {fileID: 1054118285213124676, guid: 5c3f36ef20b414a40a0640aa91b11f90, type: 3}
   - {fileID: 7392832423562220646, guid: 7722040f827539a4e8ef7df93b136f2d, type: 3}
   - {fileID: 9054324306458284357, guid: d99e776f8c8f0624dbbcc2bd376747c2, type: 3}
+--- !u!1 &1978299661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1978299662}
+  - component: {fileID: 1978299663}
+  m_Layer: 0
+  m_Name: ParticleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1978299662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978299661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2095663423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1978299663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978299661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b6960269aa4436afc023e517f0b598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onBallStopOnWheelSlotParticle: {fileID: 161470, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7,
+    type: 3}
+  _onNumberWinParticle: {fileID: 161470, guid: ef2fdb9a8a7d35c448dae6d056e9b1e7, type: 3}
+  _onWinParticle: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
+  _onDropChipParticle: {fileID: 187952, guid: c05e92eaee7a00844867e5edc8e0dde1, type: 3}
 --- !u!1 &2095663422
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,6 +946,7 @@ Transform:
   - {fileID: 2146820190}
   - {fileID: 891916907}
   - {fileID: 1595032520}
+  - {fileID: 1978299662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146820189

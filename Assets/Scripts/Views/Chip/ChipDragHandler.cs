@@ -69,6 +69,7 @@ namespace Views.Chip
                     betArea.PlaceChip(_chipView);
                     _betArea = betArea;
                     GameEvents.PlaceChip(gameObject);
+                    ParticleEvents.DropChipParticle(transform.position);
                 }
             }
         }
@@ -137,6 +138,7 @@ namespace Views.Chip
                 _chipView.SetSlotNumbers(detectedNumbers);
                 _chipView.transform.localEulerAngles = new Vector3(0, 0, 0);
                 GameEvents.PlaceChip(gameObject);
+                ParticleEvents.DropChipParticle(transform.position);
                 BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), 
                                    betType, 
                                    detectedNumbers, 

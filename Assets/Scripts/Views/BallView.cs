@@ -64,7 +64,7 @@ namespace Views
 
                 yield return null;
             }
-
+            
             _onSpinComplete?.Invoke();
         }
     }

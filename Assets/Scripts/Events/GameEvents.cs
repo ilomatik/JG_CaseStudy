@@ -65,4 +65,17 @@ namespace Events
 
         public static void RemoveBet(int playerId, BetType betType, List<int> numbers, ChipType chipValue) { OnBetRemoved?.Invoke(playerId, betType, numbers, chipValue); }
     }
+    
+    public static class ParticleEvents
+    {
+        public static event Action<Vector3> OnDropChipParticle;
+        public static event Action<Vector3> OnWinParticle;
+        public static event Action<Vector3> OnNumberWinParticle;
+        public static event Action<Vector3> OnBallStopOnWheelSlotParticle;
+
+        public static void DropChipParticle(Vector3 position)           { OnDropChipParticle?.Invoke(position); }
+        public static void WinParticle(Vector3 position)                { OnWinParticle?.Invoke(position); }
+        public static void NumberWinParticle(Vector3 position)          { OnNumberWinParticle?.Invoke(position); }
+        public static void BallStopOnWheelSlotParticle(Vector3 position) { OnBallStopOnWheelSlotParticle?.Invoke(position); }
+    }
 }

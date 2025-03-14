@@ -1,3 +1,4 @@
+using Events;
 using UnityEngine;
 using Views.Interfaces;
 
@@ -33,7 +34,7 @@ namespace Views
 
         public void ShowWinning()
         {
-            Debug.Log($"Slot{SlotNumber} is winning!");
+            ParticleEvents.NumberWinParticle(transform.position);
         }
     }
 }
