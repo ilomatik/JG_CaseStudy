@@ -107,9 +107,20 @@ namespace Managers
                 
                 GameEvents.GameWin();
                 
+                _storage.IncrementGamesWon();
                 ShowWinPopup(new PopupInfo("You won! You won " + payout + "chips!"));
                 Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
+            
+            if (winningBets.Count == 0)
+            {
+                GameEvents.GameLose();
+                _storage.IncrementGamesLost();
+                ShowLosePopup(new PopupInfo("You lost!"));
+                Debug.Log("No winning bets.");
+            }
+            
+            _storage.IncrementGamesPlayed();
         }
         
         private void OnUpdateChipAmount(string chipType, int amount)
@@ -125,6 +136,11 @@ namespace Managers
         private void ShowWinPopup(PopupInfo popupInfo)
         {
             _popup.ShowPopup(PopupNames.WinPopup, popupInfo);
+        }
+        
+        private void ShowLosePopup(PopupInfo popupInfo)
+        {
+            _popup.ShowPopup(PopupNames.LosePopup, popupInfo);
         }
         
         private void ShowShopPopup()

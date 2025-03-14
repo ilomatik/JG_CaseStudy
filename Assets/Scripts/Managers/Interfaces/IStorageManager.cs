@@ -11,7 +11,6 @@ namespace Managers
         void IncrementGamesWon();
         void IncrementGamesLost();
         
-        PlayerData     Player { get; }
         List<ChipData> GetPlayerChips();
         int            GetPlayerChipAmount(string chipType);
     }

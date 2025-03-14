@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   _isAmericanWheel: 0
-  _randomizeWheelStopValue: 1
+  _randomizeWheelStopValue: 0
   _wheelStopValue: 2
   _wheelSpeed: 20
