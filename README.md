@@ -1,5 +1,11 @@
 # JG_CaseStudy
 
+## Technologies
+
+-> Engine : Unity 2022.2.19f <br>
+-> Programming Language : C# <br>
+<br>
+
 ## Introduction
 
 -> Player name can be entered on GameManager object in hierarchy. <br>
