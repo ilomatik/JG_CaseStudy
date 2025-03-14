@@ -78,4 +78,13 @@ namespace Events
         public static void NumberWinParticle(Vector3 position)          { OnNumberWinParticle?.Invoke(position); }
         public static void BallStopOnWheelSlotParticle(Vector3 position) { OnBallStopOnWheelSlotParticle?.Invoke(position); }
     }
+
+    public static class AudioEvents
+    {
+        public static Action OnPlayButtonClick;
+        public static Action OnPlayChipDrop;
+        
+        public static void PlayButtonClick() { OnPlayButtonClick?.Invoke(); }
+        public static void PlayChipDrop()    { OnPlayChipDrop?.Invoke(); }
+    }
 }

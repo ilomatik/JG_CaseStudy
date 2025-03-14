@@ -23,15 +23,14 @@ namespace Managers
         [Header("Game Objects")]
         [SerializeField] private GameObject   _gameView;
         [SerializeField] private GameObject   _gameUIView;
-        [SerializeField] private GameSettings _gameSettings;
         
         [Header("Managers")]
         [SerializeField] private StorageManager  _storageManager;
         [SerializeField] private BetManager      _betManager;
         [SerializeField] private PopupManager    _popupManager;
         [SerializeField] private ParticleManager _particleManager;
+        [SerializeField] private AudioManager    _audioManager;
         
-
         private string           _playerNameHolder;
         private GameController   _gameController;
         private PayoutController _payoutController;
@@ -41,6 +40,7 @@ namespace Managers
         private IBetManager      _bet;
         private IPopupManager    _popup;
         private IParticleManager _particle;
+        private IAudioManager    _audio;
 
         private void Start()
         {
@@ -51,9 +51,10 @@ namespace Managers
             _bet      = _betManager;
             _popup    = _popupManager;
             _particle = _particleManager;
+            _audio    = _audioManager;
             
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
-            _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings, _gameUIViewComponent);
+            _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameUIViewComponent);
             _payoutController    = new PayoutController();
             
             Initialize();
@@ -91,6 +92,9 @@ namespace Managers
             ParticleEvents.OnNumberWinParticle           += PlayOnNumberWinParticle;
             ParticleEvents.OnBallStopOnWheelSlotParticle += PlayOnBallStopOnWheelSlotParticle;
             
+            AudioEvents.OnPlayChipDrop    += PlayChipDropSound;
+            AudioEvents.OnPlayButtonClick += PlayButtonClickSound;
+            
             BetEvents.OnBetPlaced  += _bet.PlaceBet;
             BetEvents.OnBetRemoved += _bet.RemoveBet;
         }
@@ -106,6 +110,9 @@ namespace Managers
             ParticleEvents.OnWinParticle                 -= PlayOnWinParticle;
             ParticleEvents.OnNumberWinParticle           -= PlayOnNumberWinParticle;
             ParticleEvents.OnBallStopOnWheelSlotParticle -= PlayOnBallStopOnWheelSlotParticle;
+            
+            AudioEvents.OnPlayChipDrop    -= PlayChipDropSound;
+            AudioEvents.OnPlayButtonClick -= PlayButtonClickSound;
             
             BetEvents.OnBetPlaced  -= _bet.PlaceBet;
             BetEvents.OnBetRemoved -= _bet.RemoveBet;
@@ -126,6 +133,7 @@ namespace Managers
                 _storage.IncrementGamesWon();
                 ShowWinPopup(new PopupInfo("You won! You won " + payout + "chips!"));
                 PlayOnWinParticle(Vector3.zero);
+                PlayWinSound();
                 Debug.Log($"{bet.BetType} is winning! Payout: {payout}");
             }
             
@@ -134,6 +142,7 @@ namespace Managers
                 GameEvents.GameLose();
                 _storage.IncrementGamesLost();
                 ShowLosePopup(new PopupInfo("You lost!"));
+                PlayLoseSound();
                 Debug.Log("No winning bets.");
             }
             
@@ -213,6 +222,30 @@ namespace Managers
         {
             Debug.Log("Playing Ball Stop On Wheel Slot Particle");
             _particle.PlayOnBallStopOnWheelSlotParticle(position);
+        }
+
+        #endregion
+
+        #region Audio
+
+        private void PlayWinSound()
+        {
+            _audio.PlayOnWin();
+        }
+        
+        private void PlayLoseSound()
+        {
+            _audio.PlayOnLose();
+        }
+        
+        private void PlayChipDropSound()
+        {
+            _audio.PlayOnChipDrop();
+        }
+        
+        private void PlayButtonClickSound()
+        {
+            _audio.PlayOnButtonClick();
         }
 
         #endregion

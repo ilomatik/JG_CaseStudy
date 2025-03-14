@@ -14,12 +14,10 @@ namespace Controllers
     {
         private GameUIView   _uiView;
         private IGameView    _view;
-        private GameSettings _settings;
         
-        public GameController(IGameView view, GameSettings settings, GameUIView uiView)
+        public GameController(IGameView view,  GameUIView uiView)
         {
             _view     = view;
-            _settings = settings;
             _uiView   = uiView;
         }
         
@@ -27,7 +25,6 @@ namespace Controllers
         {
             _view.Initialize();
             _view.InitializeBetAreas();
-            _view.SetWheelSpinDuration(_settings.WheelSpeed);
         }
         
         public void SubscribeEvents()

@@ -68,8 +68,8 @@ namespace Views.Chip
                     BetArea betArea = hitColliders.First(x => x.GetComponent<BetArea>() != null).GetComponent<BetArea>();
                     betArea.PlaceChip(_chipView);
                     _betArea = betArea;
-                    GameEvents.PlaceChip(gameObject);
-                    ParticleEvents.DropChipParticle(transform.position);
+                    
+                    SendEvents();
                 }
             }
         }
@@ -137,8 +137,9 @@ namespace Views.Chip
                 _chipView.SetOnBetArea(true);
                 _chipView.SetSlotNumbers(detectedNumbers);
                 _chipView.transform.localEulerAngles = new Vector3(0, 0, 0);
-                GameEvents.PlaceChip(gameObject);
-                ParticleEvents.DropChipParticle(transform.position);
+                
+                SendEvents();
+                
                 BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), 
                                    betType, 
                                    detectedNumbers, 
@@ -152,6 +153,13 @@ namespace Views.Chip
                 
                 return false;
             }
+        }
+
+        private void SendEvents()
+        {
+            GameEvents    .PlaceChip(gameObject);
+            AudioEvents   .PlayChipDrop();
+            ParticleEvents.DropChipParticle(transform.position);
         }
     }
 }

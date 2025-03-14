@@ -16,8 +16,17 @@ namespace UI
         private void Start()
         {
             _spinButton      .onClick.AddListener(OnSpinButtonClicked);
-            _shopButton      .onClick.AddListener(GameEvents.ClickShopButton);
-            _statisticsButton.onClick.AddListener(GameEvents.ClickStatisticsButton);
+            _shopButton      .onClick.AddListener(() =>
+            {
+                AudioEvents.PlayButtonClick();
+                GameEvents .ClickShopButton();
+            });
+
+            _statisticsButton.onClick.AddListener(() =>
+            {
+                AudioEvents.PlayButtonClick();
+                GameEvents .ClickStatisticsButton();
+            });
         }
         
         private void OnEnable()
@@ -41,6 +50,7 @@ namespace UI
             _spinButton             .gameObject.SetActive(false);
             _shopButton             .gameObject.SetActive(false);
             _winningNumberInputField.gameObject.SetActive(false);
+            _statisticsButton       .gameObject.SetActive(false);
         }
         
         private void EnableButtons()
@@ -48,6 +58,7 @@ namespace UI
             _spinButton             .gameObject.SetActive(true);
             _shopButton             .gameObject.SetActive(true);
             _winningNumberInputField.gameObject.SetActive(true);
+            _statisticsButton       .gameObject.SetActive(true);
         }
         
         public void SetPlayerName(string playerName)
@@ -82,6 +93,7 @@ namespace UI
         private void OnSpinButtonClicked()
         {
             GameEvents.ClickSpinButton();
+            AudioEvents.PlayButtonClick();
         }
     }
 }

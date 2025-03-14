@@ -54,6 +54,8 @@ namespace UI.Popup
         
         public void Close()
         {
+            AudioEvents.PlayButtonClick();
+            
             StartCoroutine(AnimatePopup(_visiblePosition, 
                                                _hiddenPosition, 
                                                _endColor, 
