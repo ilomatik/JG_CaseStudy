@@ -5,6 +5,7 @@ namespace UI.PopupConstants
         public const string ShopPopup     = "ShopPopup";
         public const string StatsPopup    = "StatsPopup";
         public const string WinPopup      = "WinPopup";
+        public const string LosePopup     = "LosePopup";
 
         //TODO: add other popups => settings, win, lose etc.
     }

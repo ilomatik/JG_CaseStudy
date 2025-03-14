@@ -269,7 +269,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 55
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -861,6 +861,7 @@ MonoBehaviour:
   _popupViews:
   - {fileID: 628278616680679901, guid: 3c40d686a76f05c49bf9f0d7b8a1d225, type: 3}
   - {fileID: 1054118285213124676, guid: 5c3f36ef20b414a40a0640aa91b11f90, type: 3}
+  - {fileID: 7392832423562220646, guid: 7722040f827539a4e8ef7df93b136f2d, type: 3}
 --- !u!1 &2095663422
 GameObject:
   m_ObjectHideFlags: 0
