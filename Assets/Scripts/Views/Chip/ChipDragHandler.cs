@@ -29,6 +29,7 @@ namespace Views.Chip
         {
             _offset = transform.position - GetMouseWorldPos();
             _isDragging = true;
+            _chipView.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
 
         private void OnMouseDrag()
@@ -82,10 +83,11 @@ namespace Views.Chip
         private void ReturnToStart()
         {
             transform.position = _initialPosition;
+            _chipView.transform.localEulerAngles = new Vector3(90, 0, 0);
             
             if (_chipView.IsOnBetArea)
             {
-                //GameEvents.RemoveChip(, gameObject);
+                GameEvents.RemoveChip(_chipView);
 
                 if (_betArea != null)
                 {
@@ -133,6 +135,7 @@ namespace Views.Chip
                 
                 _chipView.SetOnBetArea(true);
                 _chipView.SetSlotNumbers(detectedNumbers);
+                _chipView.transform.localEulerAngles = new Vector3(0, 0, 0);
                 GameEvents.PlaceChip(gameObject);
                 BetEvents.PlaceBet(PlayerPrefs.GetInt(GameConstant.PLAYER_ID_COUNTER), 
                                    betType, 

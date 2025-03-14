@@ -6,5 +6,6 @@ namespace Views.Interfaces
     {
         void Initialize();
         void AddChipToHolder(ChipView chipView);
+        void RemoveAndRearrangeChips(ChipView chipView);
     }
 }

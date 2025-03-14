@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
+using Views.Chip;
 
 namespace Events
 {
@@ -21,6 +22,7 @@ namespace Events
         public static Action<int> OnWheelSpinComplete;
         
         public static Action<GameObject> OnPlaceChip;
+        public static Action<ChipView>   OnRemoveChip;
 
         public static Action              OnSpinButtonClicked;
         public static Action<string, int> OnChipAmountChanged;
@@ -43,6 +45,7 @@ namespace Events
         public static void WheelSpinComplete(int stopNumber) { OnWheelSpinComplete?.Invoke(stopNumber); }
         
         public static void PlaceChip(GameObject chip) { OnPlaceChip?.Invoke(chip); }
+        public static void RemoveChip(ChipView chip)  { OnRemoveChip?.Invoke(chip); }
         
         public static void ClickSpinButton()                               { OnSpinButtonClicked?.Invoke(); }
         public static void ChangeChipAmount(string chipAmount, int amount) { OnChipAmountChanged?.Invoke(chipAmount, amount); }

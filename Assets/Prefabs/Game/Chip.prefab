@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7394309180719519380}
   - component: {fileID: 4941142459332111450}
   - component: {fileID: 2647667425168245296}
-  - component: {fileID: 6693039157903989596}
+  - component: {fileID: 2710275325168606954}
   m_Layer: 0
   m_Name: Chip
   m_TagString: Untagged
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c44205332a480295907c36799a0b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &6693039157903989596
+--- !u!65 &2710275325168606954
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,5 +129,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7902965, y: 0.16872151, z: 0.7902965}
+  m_Size: {x: 1.1854448, y: 0.25308228, z: 1.1854447}
   m_Center: {x: 0, y: 0, z: 0}

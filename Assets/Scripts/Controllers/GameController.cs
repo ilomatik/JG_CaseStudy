@@ -5,6 +5,7 @@ using Events;
 using Scripts;
 using Scripts.Helpers;
 using UnityEngine;
+using Views.Chip;
 using Views.Interfaces;
 
 namespace Controllers
@@ -36,6 +37,7 @@ namespace Controllers
             GameEvents.OnSpinButtonClicked += SpinWheel;
             GameEvents.OnWheelSpinComplete += ShowResult;
             GameEvents.OnPlaceChip         += AddChip;
+            GameEvents.OnRemoveChip        += RemoveChip;
         }
         
         public void UnsubscribeEvents()
@@ -43,6 +45,7 @@ namespace Controllers
             GameEvents.OnSpinButtonClicked -= SpinWheel;
             GameEvents.OnWheelSpinComplete -= ShowResult;
             GameEvents.OnPlaceChip         -= AddChip;
+            GameEvents.OnRemoveChip        -= RemoveChip;
         }
         
         public void StartGame(List<ChipData> playerChips)
@@ -73,6 +76,11 @@ namespace Controllers
         private void AddChip(GameObject chip)
         {
             _view.PlaceChip(chip);
+        }
+        
+        private void RemoveChip(ChipView chip)
+        {
+            _view.AddChipToHolder(chip);
         }
         
         private void ShowResult(int value)

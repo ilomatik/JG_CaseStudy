@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Enums;
 using TMPro;
 using UnityEngine;
@@ -41,6 +42,40 @@ namespace Views
                 holder.IncreaseChipAmount();
             }
         }
+        
+        public void RemoveAndRearrangeChips(ChipView chipView)
+        {
+            TableChipHolder holder = _chipHolders.Find(chipHolder => chipHolder.ChipType == chipView.ChipType);
+    
+            if (holder == null) return;
+
+            List<ChipHolderView> chipHolderViews    = holder.GetChipHolderViews();
+            ChipHolderView       chipHolderToRemove = chipHolderViews.Find(chipHolder => chipHolder.CurrentChip == chipView);
+            
+            if (chipHolderToRemove == null) return;
+    
+            chipHolderToRemove.RemoveChip();
+            holder.DecreaseChipAmount();
+
+            for (int i = 0; i < chipHolderViews.Count - 1; i++)
+            {
+                if (chipHolderViews[i].IsEmpty && !chipHolderViews[i + 1].IsEmpty)
+                {
+                    ChipView  chipToMove = chipHolderViews[i + 1].CurrentChip;
+                    Transform newParent  = chipHolderViews[i].Position;
+                    Transform chip       = chipToMove.transform;
+                    
+                    chip.SetParent(newParent);
+                    chip.localPosition = Vector3.zero;
+                    chip.localRotation = Quaternion.identity;
+
+                    chipHolderViews[i].AddChip(chipToMove);
+                    chipHolderViews[i + 1].RemoveChip();
+                }
+            }
+            
+            chipHolderViews[chipHolderViews.Count(x => !x.IsEmpty)].RemoveChip();
+        }
     }
 
     [Serializable]
@@ -80,29 +115,45 @@ namespace Views
             _chipAmount--;
             _chipAmountText.text = _chipAmount.ToString();
         }
+
+        public List<ChipHolderView> GetChipHolderViews()
+        {
+            List<ChipHolderView> chipHolderViews = new List<ChipHolderView>();
+            
+            foreach (var chipHolder in _chipPositions)
+            {
+                chipHolderViews.Add(chipHolder);
+            }
+            
+            return chipHolderViews;
+        }
     }
 
     [Serializable]
     public class ChipHolderView
     {
         [SerializeField] private Transform _position;
-        public bool IsEmpty  => _currentChip == null;
+        public bool      IsEmpty  => CurrentChip == null;
+        public Transform Position => _position;
         
-        private ChipView _currentChip;
+        public ChipView CurrentChip { get; private set; }
 
         public void AddChip(ChipView chipView)
         {
-            chipView.transform.SetParent(_position);
-            chipView.transform.localPosition = Vector3.zero;
-            _currentChip = chipView;
+            Transform chipTransform = chipView.transform;
+            chipTransform.SetParent(_position);
+            chipTransform.localPosition    = Vector3.zero;
+            chipTransform.localEulerAngles = new Vector3(90f, 0f, 0f);
+            
+            CurrentChip = chipView;
         }
         
         public void RemoveChip()
         {
-            if (_currentChip == null) return;
+            if (CurrentChip == null) return;
             
-            _currentChip.transform.SetParent(null);
-            _currentChip = null;
+            CurrentChip.transform.SetParent(_position.parent);
+            CurrentChip = null;
         }
     }
 }

@@ -78,6 +78,11 @@ namespace Views
             
             _tableChipHolderView.AddChipToHolder(chipView);
         }
+
+        public void AddChipToHolder(ChipView chipView)
+        {
+            _tableChipHolderView.AddChipToHolder(chipView);
+        }
         
         public void SpinWheel(bool isRandom, int wheelStopValue)
         {
@@ -94,10 +99,12 @@ namespace Views
         public void PlaceChip(GameObject chip)
         {
             ChipView chipView = chip.GetComponent<ChipView>();
+            
             _placedChips.Add(chipView);
+            _tableChipHolderView.RemoveAndRearrangeChips(chipView);
         }
         
-        public void RemoveChip(int betAreaId, GameObject chip)
+        public void RemoveChipFromBetArea(int betAreaId, GameObject chip)
         {
             ChipView chipView = chip.GetComponent<ChipView>();
             BetArea  betArea  = _betAreas.Find(area => area.Id == betAreaId);
