@@ -7,8 +7,14 @@ namespace Events
 {
     public static class GameEvents
     {
+        // Declare the event
         public static Action OnGameStart;
         public static Action OnGameEnd;
+        public static Action OnPopupOpen;
+        public static Action OnPopupClose;
+        
+        public static Action OnGameWin;
+        public static Action OnGameLose;
 
         public static Action      OnWheelStartSpin;
         public static Action      OnWheelStopSpin;
@@ -18,9 +24,19 @@ namespace Events
 
         public static Action              OnSpinButtonClicked;
         public static Action<string, int> OnChipAmountChanged;
+        
+        public static Action OnShopButtonClicked;
+        
+        
+        // Invoke the event
 
         public static void GameStart() { OnGameStart?.Invoke(); }
         public static void GameEnd()   { OnGameEnd?.Invoke(); }
+        public static void PopupOpen() { OnPopupOpen?.Invoke(); }
+        public static void PopupClose(){ OnPopupClose?.Invoke(); }
+        
+        public static void GameWin()  { OnGameWin?.Invoke(); }
+        public static void GameLose() { OnGameLose?.Invoke(); }
         
         public static void WheelStartSpin()                  { OnWheelStartSpin?.Invoke(); }
         public static void WheelStopSpin()                   { OnWheelStopSpin?.Invoke(); }
@@ -30,6 +46,9 @@ namespace Events
         
         public static void ClickSpinButton()                               { OnSpinButtonClicked?.Invoke(); }
         public static void ChangeChipAmount(string chipAmount, int amount) { OnChipAmountChanged?.Invoke(chipAmount, amount); }
+        
+        public static void ClickShopButton() { OnShopButtonClicked?.Invoke(); }
+        
     }
     
     public static class BetEvents

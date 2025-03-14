@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class StorageManager : MonoBehaviour
+    public class StorageManager : MonoBehaviour, IStorageManager
     {
-        public PlayerData _player;
+        public PlayerData Player { get; private set; }
 
         public void Initialize(string playerName)
         {
@@ -23,11 +23,11 @@ namespace Managers
         {
             List<ChipData> playerChips = new List<ChipData>();
             
-            _player = new PlayerData(GetPlayerIdCount(), playerName, playerChips, 0, 0, 0, System.DateTime.Now.ToString());
+            Player = new PlayerData(GetPlayerIdCount(), playerName, playerChips, 0, 0, 0, System.DateTime.Now.ToString());
             
             IncrementPlayerId();
             
-            string json = JsonUtility.ToJson(_player);
+            string json = JsonUtility.ToJson(Player);
             SavePlayerData(json);
         }
 
@@ -45,10 +45,10 @@ namespace Managers
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
-                _player = JsonUtility.FromJson<PlayerData>(json); 
+                Player = JsonUtility.FromJson<PlayerData>(json); 
                 ChipDataListWrapper wrapper = JsonUtility.FromJson<ChipDataListWrapper>("{\"chips\":" + json + "}");
 
-                Debug.Log("Player data loaded: " + _player._playerName);
+                Debug.Log("Player data loaded: " + Player._playerName);
                 
                 foreach (ChipData chip in wrapper.chips)
                 {
@@ -66,7 +66,7 @@ namespace Managers
         
         public void UpdateChipAmount(string chipType, int amountChange)
         {
-            ChipData chipData = _player._chips.FirstOrDefault(chip => chip.chipType == chipType);
+            ChipData chipData = Player._chips.FirstOrDefault(chip => chip.chipType == chipType);
             
             if (chipData != null)
             {
@@ -75,10 +75,10 @@ namespace Managers
             else
             {
                 ChipData newChip = new ChipData(chipType, amountChange);
-                _player.AddChip(newChip);
+                Player.AddChip(newChip);
             }
 
-            string json = JsonUtility.ToJson(_player);
+            string json = JsonUtility.ToJson(Player);
             
             SavePlayerData(json);
         }
@@ -93,7 +93,7 @@ namespace Managers
 
         private void OnApplicationQuit()
         {
-            string json = JsonUtility.ToJson(_player);
+            string json = JsonUtility.ToJson(Player);
             SavePlayerData(json);
         }
 
@@ -119,30 +119,30 @@ namespace Managers
         
         public void IncrementGamesPlayed()
         {
-            _player._gamesPlayed++;
-            SavePlayerData(JsonUtility.ToJson(_player));
+            Player._gamesPlayed++;
+            SavePlayerData(JsonUtility.ToJson(Player));
         }
 
         public void IncrementGamesWon()
         {
-            _player._gamesWon++;
-            SavePlayerData(JsonUtility.ToJson(_player));
+            Player._gamesWon++;
+            SavePlayerData(JsonUtility.ToJson(Player));
         }
 
         public void IncrementGamesLost()
         {
-            _player._gamesLost++;
-            SavePlayerData(JsonUtility.ToJson(_player));
+            Player._gamesLost++;
+            SavePlayerData(JsonUtility.ToJson(Player));
         }
-        
+
         public List<ChipData> GetPlayerChips()
         {
-            return _player._chips;
+            return Player._chips;
         }
         
         public int GetPlayerChipAmount(string chipType)
         {
-            ChipData chipData = _player._chips.FirstOrDefault(chip => chip.chipType == chipType);
+            ChipData chipData = Player._chips.FirstOrDefault(chip => chip.chipType == chipType);
             
             return chipData?.amount ?? 0;
         }

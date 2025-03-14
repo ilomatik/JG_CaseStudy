@@ -12,35 +12,40 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _playerNameText;
         [SerializeField] private Button          _spinButton;
-        [SerializeField] private TMP_Dropdown    _dropdown;
-        [SerializeField] private TMP_InputField  _chipInputField;
-        [SerializeField] private Button          _addChipButton;
+        [SerializeField] private Button          _shopButton;
         
         private void Start()
         {
-            _spinButton   .onClick.AddListener(OnSpinButtonClicked);
-            _addChipButton.onClick.AddListener(OnAddChipButtonClicked);
-            
-            SetDropdownOptions();
-        }
-        
-        private void SetDropdownOptions()
-        {
-            _dropdown.ClearOptions();
-            var enumValues = Enum.GetValues(typeof(ChipType)).Cast<ChipType>().Select(e => e.ToString()).ToList();
-            _dropdown.AddOptions(enumValues);
+            _spinButton.onClick.AddListener(OnSpinButtonClicked);
+            _shopButton.onClick.AddListener(GameEvents.ClickShopButton);
         }
         
         private void OnEnable()
         {
             GameEvents.OnWheelStartSpin += SetSpinButtonUnclickable;
             GameEvents.OnWheelStopSpin  += SetSpinButtonClickable;
+            GameEvents.OnPopupOpen      += DisableButtons;
+            GameEvents.OnPopupClose     += EnableButtons;
         }
         
         private void OnDisable()
         {
             GameEvents.OnWheelStartSpin -= SetSpinButtonUnclickable;
             GameEvents.OnWheelStopSpin  -= SetSpinButtonClickable;
+            GameEvents.OnPopupOpen      -= DisableButtons;
+            GameEvents.OnPopupClose     -= EnableButtons;
+        }
+        
+        private void DisableButtons()
+        {
+            _spinButton.gameObject.SetActive(false);
+            _shopButton.gameObject.SetActive(false);
+        }
+        
+        private void EnableButtons()
+        {
+            _spinButton.gameObject.SetActive(true);
+            _shopButton.gameObject.SetActive(true);
         }
         
         public void SetPlayerName(string playerName)
@@ -61,14 +66,6 @@ namespace UI
         private void OnSpinButtonClicked()
         {
             GameEvents.ClickSpinButton();
-        }
-        
-        private void OnAddChipButtonClicked()
-        {
-            string chipType   = _dropdown.options[_dropdown.value].text;
-            string chipAmount = _chipInputField.text;
-            
-            GameEvents.ChangeChipAmount(chipType, int.Parse(chipAmount));
         }
     }
 }
