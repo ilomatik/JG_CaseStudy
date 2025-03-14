@@ -10,7 +10,7 @@ namespace Views.Interfaces
         void InitializeBetAreas();
         void SetWheelSpinDuration(float duration);
         void SpawnChip(ChipType chipType);
-        void SpinWheel(bool isRandom, int wheelStopValue);
+        void SpinWheel(int wheelStopValue);
         void ShowResult(int value);
         void AddChipToHolder(ChipView chipView);
         void PlaceChip(GameObject chip);

@@ -49,7 +49,7 @@ namespace Managers
             _popup   = _popupManager;
             
             _gameUIViewComponent = gameUIView.GetComponent<GameUIView>();
-            _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings);
+            _gameController      = new GameController(gameView.GetComponent<IGameView>(), _gameSettings, _gameUIViewComponent);
             _payoutController    = new PayoutController();
             
             Initialize();

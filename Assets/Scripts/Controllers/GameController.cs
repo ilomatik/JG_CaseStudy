@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Data;
 using Enums;
 using Events;
 using Scripts;
 using Scripts.Helpers;
+using UI;
 using UnityEngine;
 using Views.Chip;
 using Views.Interfaces;
@@ -12,23 +12,21 @@ namespace Controllers
 {
     public class GameController
     {
-        private GameData     _data;
+        private GameUIView   _uiView;
         private IGameView    _view;
         private GameSettings _settings;
         
-        public GameController(IGameView view, GameSettings settings)
+        public GameController(IGameView view, GameSettings settings, GameUIView uiView)
         {
             _view     = view;
             _settings = settings;
-            _data     = new GameData();
+            _uiView   = uiView;
         }
         
         public void Initialize()
         {
-            _data.Initialize();
             _view.Initialize();
             _view.InitializeBetAreas();
-            
             _view.SetWheelSpinDuration(_settings.WheelSpeed);
         }
         
@@ -70,7 +68,7 @@ namespace Controllers
 
         private void SpinWheel()
         {
-            _view.SpinWheel(_settings.RandomizeWheelStopValue, _settings.WheelStopValue);
+            _view.SpinWheel(_uiView.GetWinningNumber());
         }
         
         private void AddChip(GameObject chip)

@@ -84,8 +84,10 @@ namespace Views
             _tableChipHolderView.AddChipToHolder(chipView);
         }
         
-        public void SpinWheel(bool isRandom, int wheelStopValue)
+        public void SpinWheel(int wheelStopValue)
         {
+            bool isRandom = wheelStopValue == -1;
+            
             _table.ResetSlots();
             _wheel.SetStopNumber(isRandom, wheelStopValue);
             _wheel.Spin();
